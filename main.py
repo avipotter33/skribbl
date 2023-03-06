@@ -16,6 +16,11 @@ def main():
     background = pygame.image.load('background image.jpg')
     background = pygame.transform.scale(background,
                                         (WINDOW_WIDTH, WINDOW_HEIGHT))
+    background = background.convert()
+    rect = background.get_rect()
+    background.set_alpha(ALPHA_BACKGROUND)
+    button1 = pygame.image.load('button.png')
+    button1 = pygame.transform.scale(button1, (BUTTON_WIDTH, BUTTON_HEIGHT))
 
     running = True
     while running:
@@ -28,8 +33,9 @@ def main():
             pygame.display.update()
             # Display the background, presented Image, likes, comments, tags and
             # location(on the Image)
-            screen.fill(BLACK)
-            screen.blit(background, (0, 0))
+            screen.fill(WHITE)
+            screen.blit(background, rect)
+            screen.blit(button1, (BUTTON1_X_POS, BUTTON1_Y_POS))
 
             # Update display - without input update everything
             pygame.display.update()
