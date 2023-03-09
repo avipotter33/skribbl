@@ -1,4 +1,5 @@
 import pygame
+import os
 
 # initialize Pygame
 pygame.init()
@@ -21,10 +22,7 @@ drawing_surface.fill(WHITE)
 brush_size = 5
 brush_color = BLACK
 
-# set up the undo button
-undo_button = pygame.Rect(10, 10, 50, 30)
-undo_font = pygame.font.SysFont(None, 24)
-undo_text = undo_font.render("Undo", True, BLACK)
+
 
 # start the game loop
 running = True
@@ -45,10 +43,7 @@ while running:
                 pygame.draw.line(drawing_surface, brush_color, last_pos, event.pos, brush_size)
                 last_pos = event.pos
 
-    # draw the undo button
-    pygame.draw.rect(drawing_surface, WHITE, undo_button)
-    pygame.draw.rect(drawing_surface, BLACK, undo_button, 1)
-    drawing_surface.blit(undo_text, (undo_button.x + 5, undo_button.y + 5))
+
 
     # update the screen
     window.blit(drawing_surface, (0, 0))
