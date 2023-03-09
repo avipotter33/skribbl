@@ -20,9 +20,9 @@ print(f"Player 1 connected from {address1}")
 player2, address2 = server_socket.accept()
 print(f"Player 2 connected from {address2}")
 
-# send a welcome message to each player
-player1.send(b"Welcome, Player 1!")
-player2.send(b"Welcome, Player 2!")
+# send screen to each player
+player1.send(100)
+player2.send(100)
 
 # start the game loop
 while True:
