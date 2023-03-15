@@ -2,28 +2,19 @@ import socket
 import threading
 import pickle
 
-HOST = ''  # listen on all available network interfaces
-PORT = 5000  # use a non-reserved port number
-
 # create a socket object
-server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_socket = socket.socket()
+
+HOST = ''  # listen on all available network interfaces
+PORT = 6000  # use a non-reserved port number
 
 # bind the socket object to a specific host and port
 server_socket.bind((HOST, PORT))
 
 # listen for incoming connections
-server_socket.listen()
+server_socket.listen(5)
 
-# Get the hostname of the machine
-hostname = socket.gethostname()
-
-# Get the IP address associated with the hostname
-ip_address = socket.gethostbyname(hostname)
-
-# Print the IP address
-print(f"IP address: {ip_address}")
-
-print(f"Server is listening on port {PORT}")
+print("server running")
 
 # accept two client connections
 player1, address1 = server_socket.accept()
@@ -36,7 +27,7 @@ print(f"Player 2 connected from {address2}")
 
 while True:
     # Receive the image data from player0
-    data = player1.recv(1024)
+    data = player1.recv(10000)
     player1.send(b'ok')
     player2.send(data)
 

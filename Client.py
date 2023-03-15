@@ -1,15 +1,21 @@
 import socket
 import pickle
 import pygame
+import threading
 import os
+
+
+def receive_image:
+    global received_image
+    client
 
 # initialize Pygame
 pygame.init()
 
 # init the socket
 # TODO: constants
-HOST = '192.168.4.242'  # TODO: replace with the IP address of the server computer
-PORT = 5000
+HOST = '192.168.4.254'  # TODO: replace with the IP address of the server computer
+PORT = 6000
 
 # create a socket object
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -18,7 +24,7 @@ client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect((HOST, PORT))
 
 # get player index
-player_index = client_socket.recv(1024).decode()
+player_index = int(client_socket.recv(1024).decode())
 print(player_index)
 
 
@@ -84,7 +90,7 @@ if player_index == 0:
                 image_to_bytes = f.read()
 
             # send the move to the server
-            client_socket.send(image_to_bytes)
+            client_socket.sendall(image_to_bytes)
 
             # receive the result from the server
             result = client_socket.recv(1024)
@@ -94,12 +100,11 @@ if player_index == 0:
             clicked_save = False
 else:
     while running:
-        image_data = client_socket.recv(1024)
-        with open(os.path.join("saved_drawings", f"image.png"),"wb") as f:
+        image_data = client_socket.recv(10000)
+        with open(os.path.join("saved_drawings", "image.png"),"wb") as f:
             f.write(image_data)
         image = pygame.image.load(os.path.join("saved_drawings", f"image.png"))
         image = pygame.transform.scale(image,(WINDOW_WIDTH ,WINDOW_HEIGHT))
-
         # update the screen
         window.blit(image,(0,0))
         pygame.display.flip()
