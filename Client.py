@@ -12,7 +12,9 @@ client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect((HOST, PORT))
 
 # get player index
-player_index = client_socket.recv(1024)
+player_index = client_socket.recv(1024).decode()
+print(player_index)
+
 
 # set the window size and title
 # TODO: in constants
@@ -26,22 +28,20 @@ pygame.display.set_caption("Draw on the Screen")
 # TODO: in constants
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
-
-# set up the drawing surface
-drawing_surface = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
-drawing_surface.fill(WHITE)
-
-# set up the drawing tools
-# TODO: in constants
-brush_size = 5
-brush_color = BLACK
-
-clicked_save = False
-got_drawing = False
-
-# start the game loop
 running = True
+
 if player_index == 0:
+    # set up the drawing surface
+    drawing_surface = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
+    drawing_surface.fill(WHITE)
+
+    # set up the drawing tools
+    # TODO: in constants
+    brush_size = 5
+    brush_color = BLACK
+
+    clicked_save = False
+    # start the game loop
     while running:
         # handle events
         for event in pygame.event.get():
@@ -85,19 +85,14 @@ if player_index == 0:
 
             print(result.decode())
 
-            # Make sure to only update this client's screen
-            client_socket.sendall(b'update')
-
             clicked_save = False
 else:
     while running:
-        if not got_drawing:
-            image_data = client_socket.recv(1024)
-            with open(os.path.join("saved_drawings", f"image.png"),"wb") as f:
-                f.write(image_data)
-            image = pygame.image.load(os.path.join("saved_drawings", f"image.png"))
-            image = pygame.transform.scale(image,(WINDOW_WIDTH ,WINDOW_HEIGHT))
-            got_drawing = True
+        image_data = client_socket.recv(1024)
+        with open(os.path.join("saved_drawings", f"image.png"),"wb") as f:
+            f.write(image_data)
+        image = pygame.image.load(os.path.join("saved_drawings", f"image.png"))
+        image = pygame.transform.scale(image,(WINDOW_WIDTH ,WINDOW_HEIGHT))
 
         # update the screen
         window.blit(image,(0,0))
