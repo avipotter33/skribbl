@@ -5,12 +5,15 @@ import os
 pygame.init()
 
 # set the window size and title
+# TODO: in constants
 WINDOW_WIDTH = 640
 WINDOW_HEIGHT = 480
+
 window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("Draw on the Screen")
 
 # set up the colors
+# TODO: in constants
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 
@@ -19,9 +22,9 @@ drawing_surface = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
 drawing_surface.fill(WHITE)
 
 # set up the drawing tools
+# TODO: in constants
 brush_size = 5
 brush_color = BLACK
-
 
 
 # start the game loop

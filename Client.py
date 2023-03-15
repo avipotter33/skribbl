@@ -1,8 +1,14 @@
 import socket
 import pickle
 import pygame
+import os
 
-HOST = '172.16.190.43'  # replace with the IP address of the server computer
+# initialize Pygame
+pygame.init()
+
+# init the socket
+# TODO: constants
+HOST = '192.168.4.242'  # TODO: replace with the IP address of the server computer
 PORT = 5000
 
 # create a socket object
