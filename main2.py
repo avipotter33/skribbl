@@ -3,6 +3,7 @@ WINDOW_WIDTH, WINDOW_HEIGHT = 1400, 800
 ALPHA_BACKGROUND = 50
 CURSOR_WIDTH, CURSOR_HEIGHT = 100, 100
 
+
 def main():
     screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.RESIZABLE)
     # Set up the game display, clock and headline
