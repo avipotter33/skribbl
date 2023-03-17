@@ -1,7 +1,5 @@
 import pygame
-WINDOW_WIDTH, WINDOW_HEIGHT = 1400, 800
-ALPHA_BACKGROUND = 50
-CURSOR_WIDTH, CURSOR_HEIGHT = 100, 100
+from Constants import *
 
 
 def main():
