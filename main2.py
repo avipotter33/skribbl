@@ -13,14 +13,14 @@ def main():
     clock = pygame.time.Clock()
 
     # Set up background image
-    background = pygame.image.load('‏‏background_image.png')
+    background = pygame.image.load('Images/‏‏background_image.png')
     background = pygame.transform.scale(background,
                                         (WINDOW_WIDTH, WINDOW_HEIGHT))
 
     image_x_index = 0
 
     pygame.mouse.set_visible(False)
-    cursor_img = pygame.image.load('cursor_image.png')
+    cursor_img = pygame.image.load('Images/cursor_image.png')
     cursor_img = pygame.transform.scale(cursor_img,
                                         (CURSOR_WIDTH, CURSOR_HEIGHT))
     cursor_img_rect = cursor_img.get_rect()
@@ -30,7 +30,7 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-        screen.fill((180, 223, 247))
+        screen.fill(BLUE)
         screen.blit(background, (image_x_index, 0))
         image_x_index -= 1
 
