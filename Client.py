@@ -3,8 +3,7 @@ import pickle
 import pygame
 import threading
 import os
-
-
+import translators
 def receive_image:
     global received_image
     client
