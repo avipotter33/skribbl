@@ -2,6 +2,7 @@ import pygame
 from Constants import *
 from helpers import *
 from buttons import *
+import translators as ts
 
 
 def add_image(img_path, x_pos, y_pos, width, height, screen):
