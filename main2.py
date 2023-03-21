@@ -1,5 +1,7 @@
 import pygame
 from Constants import *
+from helpers import *
+from buttons import *
 
 
 def add_image(img_path, x_pos, y_pos, width, height, screen):
@@ -52,6 +54,9 @@ def main():
         #add_image('Images/yellow button.png', BUTTON_X_POS, BUTTON_Y_POS, BUTTON_WIDTH, BUTTON_HEIGHT, screen)
 
         cursor_img_rect.center = pygame.mouse.get_pos()  # update position
+        if mouse_in_button(play_button, pygame.mouse.get_pos()):
+            add_image('Images/yellow button.png', PLAY_BTN_X_POS, PLAY_BTN_Y_POS, PLAY_BTN_WIDTH, PLAY_BTN_HEIGHT,
+                      screen)
         screen.blit(cursor_img, cursor_img_rect)  # draw the cursor
 
         pygame.display.update()
