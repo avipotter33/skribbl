@@ -4,7 +4,11 @@ import buttons
 from Constants import *
 from helpers import *
 from buttons import *
-from drawing_player import dp_main
+import translators as ts
+from drawing_player import *
+
+q_1 = "אני אוהב לאכול"
+print(ts.translate_text(q_1))
 
 
 def add_image(img_path, x_pos, y_pos, width, height, screen):
@@ -66,6 +70,10 @@ def main():
         if mouse_in_button(play_button, pygame.mouse.get_pos()):
             add_image('Images/yellow button.png', PLAY_BTN_X_POS, PLAY_BTN_Y_POS, PLAY_BTN_WIDTH, PLAY_BTN_HEIGHT,
                       screen)
+        font = pygame.font.SysFont('Anything Skribble', PLAY_TEXT_SIZE)
+        text = font.render(PLAY_TEXT, True, WHITE)
+        screen.blit(text, [PLAY_BTN_X_POS + 10, PLAY_BTN_Y_POS + 10])
+
         screen.blit(cursor_img, cursor_img_rect)  # draw the cursor
 
         pygame.display.update()
