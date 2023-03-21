@@ -1,5 +1,6 @@
 import pygame
 from Constants import *
+from helpers import *
 
 
 def add_image(img_path, x_pos, y_pos, width, height, screen):
@@ -36,6 +37,7 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            #if event.type == pygame.MOUSEBUTTONDOWN:
         screen.fill(BLUE)
         screen.blit(background, (image_x_index, 0))
 
