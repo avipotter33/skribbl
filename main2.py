@@ -1,4 +1,6 @@
 import pygame
+
+import buttons
 from Constants import *
 from helpers import *
 from buttons import *
@@ -10,6 +12,7 @@ def add_image(img_path, x_pos, y_pos, width, height, screen):
     img = pygame.transform.scale(img, (width, height))
     screen.blit(img, (x_pos, y_pos))
 
+play_button = buttons.play_button
 
 def main():
     screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.RESIZABLE)
@@ -22,9 +25,9 @@ def main():
     clock = pygame.time.Clock()
 
     # Set up background image
-    background = pygame.image.load('Images/‏‏background_image.png')
+    background = pygame.image.load('Images/background_image.jpg')
     background = pygame.transform.scale(background,
-                                        (WINDOW_WIDTH + 500, WINDOW_HEIGHT))
+                                        (WINDOW_WIDTH, WINDOW_HEIGHT))
 
     image_x_index = 0
 
@@ -39,13 +42,17 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = event.pos
+                if mouse_in_button(play_button, mouse_pos):
+                    main()
         screen.fill(BLUE)
         screen.blit(background, (image_x_index, 0))
 
         if image_x_index != (0 - WINDOW_WIDTH):
-            screen.blit(background, (WINDOW_WIDTH + 500 + image_x_index, 0))
+            screen.blit(background, (WINDOW_WIDTH + image_x_index, 0))
         else:
-            screen.blit(background, (WINDOW_WIDTH + 500 + image_x_index, 0))
+            screen.blit(background, (WINDOW_WIDTH + image_x_index, 0))
             image_x_index = 0
 
         image_x_index -= 1
@@ -55,6 +62,7 @@ def main():
         #add_image('Images/yellow button.png', BUTTON_X_POS, BUTTON_Y_POS, BUTTON_WIDTH, BUTTON_HEIGHT, screen)
 
         cursor_img_rect.center = pygame.mouse.get_pos()  # update position
+        print(pygame.mouse.get_pos())
         if mouse_in_button(play_button, pygame.mouse.get_pos()):
             add_image('Images/yellow button.png', PLAY_BTN_X_POS, PLAY_BTN_Y_POS, PLAY_BTN_WIDTH, PLAY_BTN_HEIGHT,
                       screen)

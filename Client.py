@@ -3,7 +3,7 @@ import pickle
 import pygame
 import threading
 import os
-import translators
+import translators as ts
 
 
 # def receive_image:
