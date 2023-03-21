@@ -1,5 +1,6 @@
 import pygame
 import os
+import random
 
 # initialize Pygame
 pygame.init()
@@ -25,6 +26,11 @@ drawing_surface.fill(WHITE)
 # TODO: in constants
 brush_size = 5
 brush_color = BLACK
+
+words_level1 = ["coin", "star", "ear", "pie", "bus", "window", "ocean", "shield", "bridge", "Earth", "legs", "car", "mountains", "door", "flower"]
+words_level2 = ["needle", "waterfall", "school bus", "north", "pool", "popcorn", "glass", "popsicle", "t shirt", "hockey", "bike", "hospital", "picture frame", "smoke", "camel"]
+words_level3 = ["professor", "half", "toothpasre", "date", "sushi", "birthday", "classroom", "time", "sponge", "skinny", "panda", "cinema", "dawn", "pot", "high five"]
+word = random.choice(words_level1)
 
 
 # start the game loop
