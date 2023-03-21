@@ -8,6 +8,7 @@ pygame.init()
 # TODO: in constants
 WINDOW_WIDTH = 640
 WINDOW_HEIGHT = 480
+CURSOR_WIDTH, CURSOR_HEIGHT = 100, 100
 
 window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("Draw on the Screen")
@@ -26,10 +27,15 @@ drawing_surface.fill(WHITE)
 brush_size = 5
 brush_color = BLACK
 
+cursor_img = pygame.image.load('Images/cursor_image.png')
+cursor_img = pygame.transform.scale(cursor_img,
+                                    (CURSOR_WIDTH + 20, CURSOR_HEIGHT))
+cursor_img_rect = cursor_img.get_rect()
 
 # start the game loop
 running = True
 while running:
+    window.blit(drawing_surface, (0, 0))
     # handle events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -41,7 +47,7 @@ while running:
                 if 20 < mouse_x_pos < 20 + 50 and 50 < mouse_y_pos < 100:
                     pygame.image.save(drawing_surface, os.path.join("screenshots", "screenshot.png"))
                 else:
-                    pygame.draw.circle(drawing_surface, brush_color, event.pos, brush_size)
+                    pygame.draw.circle(drawing_surface, brush_color, event.pos, brush_size - 2)
                     last_pos = event.pos
             elif event.button == 3:  # right mouse button
                 # undo last path
@@ -54,8 +60,11 @@ while running:
     rect = pygame.Rect(20, 50, 50, 50)
     pygame.draw.rect(drawing_surface, BLACK, rect)
 
+    cursor_img_rect.center = (pygame.mouse.get_pos()[0] + 22, pygame.mouse.get_pos()[1] - 40) # update position
+    window.blit(cursor_img, cursor_img_rect)  # draw the cursor
+
     # update the screen
-    window.blit(drawing_surface, (0, 0))
+    pygame.display.update()
     pygame.display.flip()
 
 # quit Pygame

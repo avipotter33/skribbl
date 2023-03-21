@@ -1,39 +1,27 @@
 import socket
+import os
 import pickle
 import pygame
-import os
+from Constants import *
 
-# initialize Pygame
-pygame.init()
-
-# init the socket
-# TODO: constants
-HOST = '192.168.4.242'  # TODO: replace with the IP address of the server computer
-PORT = 5000
+HOST = '192.168.4.254'  # replace with the IP address of the server computer
+PORT = 6000
 
 # create a socket object
-client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket = socket.socket()
 
 # connect to the server
 client_socket.connect((HOST, PORT))
 
 # get player index
-player_index = client_socket.recv(1024).decode()
+player_index = int(client_socket.recv(1024).decode())
 print(player_index)
 
-
-# set the window size and title
-# TODO: in constants
-WINDOW_WIDTH = 640
-WINDOW_HEIGHT = 480
 
 window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("Draw on the Screen")
 
-# set up the colors
-# TODO: in constants
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
+
 running = True
 
 if player_index == 0:
@@ -42,8 +30,7 @@ if player_index == 0:
     drawing_surface.fill(WHITE)
 
     # set up the drawing tools
-    # TODO: in constants
-    brush_size = 5
+    brush_size = BRUSH_SIZE
     brush_color = BLACK
 
     clicked_save = False
@@ -84,7 +71,7 @@ if player_index == 0:
                 image_to_bytes = f.read()
 
             # send the move to the server
-            client_socket.send(image_to_bytes)
+            client_socket.sendall(image_to_bytes)
 
             # receive the result from the server
             result = client_socket.recv(1024)

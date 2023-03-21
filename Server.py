@@ -2,8 +2,8 @@ import socket
 import threading
 import pickle
 
-HOST = ''  # listen on all available network interfaces
-PORT = 5000  # use a non-reserved port number
+HOST = '0.0.0.0'  # listen on all available network interfaces
+PORT = 6000  # use a non-reserved port number
 
 # create a socket object
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
