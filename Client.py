@@ -8,14 +8,15 @@ import translators
 
 # def receive_image:
 #     global received_image
+from Constants import *
 
 # initialize Pygame
 pygame.init()
 
 # init the socket
 # TODO: constants
-HOST = '192.168.4.254'  # TODO: replace with the IP address of the server computer
-PORT = 6000
+HOST = '192.168.4.242'  # TODO: replace with the IP address of the server computer
+PORT = 5000
 
 # create a socket object
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -48,8 +49,7 @@ if player_index == 0:
     drawing_surface.fill(WHITE)
 
     # set up the drawing tools
-    # TODO: in constants
-    brush_size = 5
+    brush_size = BRUSH_SIZE
     brush_color = BLACK
 
     clicked_save = False
@@ -105,6 +105,7 @@ else:
             f.write(image_data)
         image = pygame.image.load(os.path.join("saved_drawings", f"image.png"))
         image = pygame.transform.scale(image,(WINDOW_WIDTH ,WINDOW_HEIGHT))
+
         # update the screen
         window.blit(image,(0,0))
         pygame.display.flip()

@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/Nitzapoly.iml" filepath="$PROJECT_DIR$/.idea/Nitzapoly.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/nitzapoly1.iml" filepath="$PROJECT_DIR$/.idea/nitzapoly1.iml" />
+>>>>>>> origin/main
     </modules>
   </component>
 </project>

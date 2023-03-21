@@ -2,6 +2,12 @@ import pygame
 from Constants import *
 
 
+def add_image(img_path, x_pos, y_pos, width, height, screen):
+    img = pygame.image.load(img_path)
+    img = pygame.transform.scale(img, (width, height))
+    screen.blit(img, (x_pos, y_pos))
+
+
 def main():
     screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.RESIZABLE)
     # Set up the game display, clock and headline
@@ -15,7 +21,7 @@ def main():
     # Set up background image
     background = pygame.image.load('Images/‏‏background_image.png')
     background = pygame.transform.scale(background,
-                                        (WINDOW_WIDTH, WINDOW_HEIGHT))
+                                        (WINDOW_WIDTH + 500, WINDOW_HEIGHT))
 
     image_x_index = 0
 
@@ -32,13 +38,18 @@ def main():
                 running = False
         screen.fill(BLUE)
         screen.blit(background, (image_x_index, 0))
-        image_x_index -= 1
 
         if image_x_index != (0 - WINDOW_WIDTH):
-            screen.blit(background, (WINDOW_WIDTH + image_x_index + 1, 0))
+            screen.blit(background, (WINDOW_WIDTH + 500 + image_x_index, 0))
         else:
-            screen.blit(background, (WINDOW_WIDTH + image_x_index + 1, 0))
+            screen.blit(background, (WINDOW_WIDTH + 500 + image_x_index, 0))
             image_x_index = 0
+
+        image_x_index -= 1
+
+        add_image('Images/home page5(2).png', HOME_PAGE_X_POS, HOME_PAGE_Y_POS, HOME_PAGE_WIDTH, HOME_PAGE_HEIGHT, screen)
+        add_image('Images/button.png', BUTTON_X_POS, BUTTON_Y_POS, BUTTON_WIDTH, BUTTON_HEIGHT, screen)
+        #add_image('Images/yellow button.png', BUTTON_X_POS, BUTTON_Y_POS, BUTTON_WIDTH, BUTTON_HEIGHT, screen)
 
         cursor_img_rect.center = pygame.mouse.get_pos()  # update position
         screen.blit(cursor_img, cursor_img_rect)  # draw the cursor
