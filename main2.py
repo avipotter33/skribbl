@@ -48,7 +48,7 @@ def main():
         image_x_index -= 1
 
         add_image('Images/home page5(2).png', HOME_PAGE_X_POS, HOME_PAGE_Y_POS, HOME_PAGE_WIDTH, HOME_PAGE_HEIGHT, screen)
-        add_image('Images/button.png', BUTTON_X_POS, BUTTON_Y_POS, BUTTON_WIDTH, BUTTON_HEIGHT, screen)
+        add_image('Images/button.png', PLAY_BTN_X_POS, PLAY_BTN_Y_POS, PLAY_BTN_WIDTH, PLAY_BTN_HEIGHT, screen)
         #add_image('Images/yellow button.png', BUTTON_X_POS, BUTTON_Y_POS, BUTTON_WIDTH, BUTTON_HEIGHT, screen)
 
         cursor_img_rect.center = pygame.mouse.get_pos()  # update position
