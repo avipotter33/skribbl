@@ -4,6 +4,7 @@ import buttons
 from Constants import *
 from helpers import *
 from buttons import *
+from drawing_player import dp_main
 
 
 def add_image(img_path, x_pos, y_pos, width, height, screen):
@@ -44,7 +45,7 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = event.pos
                 if mouse_in_button(play_button, mouse_pos):
-                    main()
+                    dp_main()
         screen.fill(BLUE)
         screen.blit(background, (image_x_index, 0))
 
