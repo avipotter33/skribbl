@@ -1,4 +1,6 @@
 import pygame
+
+import buttons
 from Constants import *
 from helpers import *
 from buttons import *
@@ -9,6 +11,7 @@ def add_image(img_path, x_pos, y_pos, width, height, screen):
     img = pygame.transform.scale(img, (width, height))
     screen.blit(img, (x_pos, y_pos))
 
+play_button = buttons.play_button
 
 def main():
     screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.RESIZABLE)
@@ -38,6 +41,10 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = event.pos
+                if mouse_in_button(play_button, mouse_pos):
+                    main()
         screen.fill(BLUE)
         screen.blit(background, (image_x_index, 0))
 
