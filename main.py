@@ -1,5 +1,9 @@
 import pygame
 import os
+import random
+from Constants import *
+from helpers import *
+
 
 # initialize Pygame
 pygame.init()
@@ -17,6 +21,7 @@ pygame.display.set_caption("Draw on the Screen")
 # TODO: in constants
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
+ran_Level1 = random.choice(WORDS_LEVEL1)
 
 # set up the drawing surface
 drawing_surface = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
@@ -57,6 +62,10 @@ while running:
                 pygame.draw.line(drawing_surface, brush_color, last_pos, event.pos, brush_size)
                 last_pos = event.pos
 
+    font = pygame.font.SysFont("Arial", 36)
+    txtsurf = font.render(ran_Level1, True, WHITE)
+    screen.blit(txtsurf, (200 - txtsurf.get_width() // 2, 150 - txtsurf.get_height() // 2))
+
     rect = pygame.Rect(20, 50, 50, 50)
     pygame.draw.rect(drawing_surface, BLACK, rect)
 
@@ -69,3 +78,26 @@ while running:
 
 # quit Pygame
 pygame.quit()
+
+
+
+pygame.init()
+screen = pygame.display.set_mode((400, 300))
+done = False
+white=(255,255,255)
+red = (255,0,0)
+green = (0,255,0)
+blue = (0,0,255)
+
+bg = (127,127,127)
+while not done:
+   for event in pygame.event.get():
+      screen.fill(bg)
+      if event.type == pygame.QUIT:
+         done = True
+      font = pygame.font.SysFont("Arial", 36)
+   txtsurf = font.render(ran_Level1, True, white)
+   screen.blit(txtsurf,(200 - txtsurf.get_width() // 2, 150 - txtsurf.get_height() // 2))
+pygame.display.update()
+
+
