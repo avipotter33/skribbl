@@ -72,7 +72,7 @@ def main():
                       screen)
         font = pygame.font.SysFont('Anything Skribble', PLAY_TEXT_SIZE)
         text = font.render(PLAY_TEXT, True, WHITE)
-        screen.blit(text, [PLAY_BTN_X_POS + 10, PLAY_BTN_Y_POS + 10])
+        screen.blit(text, [PLAY_BTN_X_POS + 22, PLAY_BTN_Y_POS])
 
         screen.blit(cursor_img, cursor_img_rect)  # draw the cursor
 
