@@ -7,10 +7,8 @@ from buttons import *
 import translators as ts
 
 
-q_1 = "אני אוהב לאכול"
-print(ts.translate_text(q_1))
-
-
+change_language = True
+PLAY_TEXT = ts.translate_text(PLAY_TEXT, to_language='he')
 def add_image(img_path, x_pos, y_pos, width, height, screen):
     img = pygame.image.load(img_path)
     img = pygame.transform.scale(img, (width, height))
