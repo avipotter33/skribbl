@@ -5,7 +5,7 @@ from Constants import *
 from helpers import *
 from buttons import *
 import translators as ts
-
+from drawing_player import *
 
 change_language = True
 PLAY_TEXT = ts.translate_text(PLAY_TEXT, to_language='he')
@@ -47,7 +47,7 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = event.pos
                 if mouse_in_button(play_button, mouse_pos):
-                    main()
+                    dp_main()
         screen.fill(BLUE)
         screen.blit(background, (image_x_index, 0))
 
@@ -70,7 +70,7 @@ def main():
                       screen)
         font = pygame.font.SysFont('Anything Skribble', PLAY_TEXT_SIZE)
         text = font.render(PLAY_TEXT, True, WHITE)
-        screen.blit(text, [PLAY_BTN_X_POS + 10, PLAY_BTN_Y_POS + 10])
+        screen.blit(text, [PLAY_BTN_X_POS + 22, PLAY_BTN_Y_POS])
 
         screen.blit(cursor_img, cursor_img_rect)  # draw the cursor
 
