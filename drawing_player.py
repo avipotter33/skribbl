@@ -73,7 +73,6 @@ def dp_main():
                         finished_drawing = True
 
         if finished_drawing:
-            pygame.time.delay(500)
             g_player_main()
 
         timer_font = pygame.font.SysFont("Arial", 36)
@@ -87,6 +86,8 @@ def dp_main():
 
         cursor_img_rect.center = (pygame.mouse.get_pos()[0] + 22, pygame.mouse.get_pos()[1] - 40) # update position
         screen.blit(cursor_img, cursor_img_rect)  # draw the cursor
+
+        pygame.image.save(drawing_surface, os.path.join("screenshots", "screenshot.png"))
 
         # update the screen
         pygame.display.update()
