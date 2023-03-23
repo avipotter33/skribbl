@@ -3,6 +3,7 @@ import os
 import random
 from Constants import *
 from helpers import *
+from main_player2 import *
 def dp_main():
 
     # initialize Pygame
@@ -38,6 +39,11 @@ def dp_main():
                                         (CURSOR_WIDTH + 20, CURSOR_HEIGHT))
     cursor_img_rect = cursor_img.get_rect()
 
+    counter = 10
+    timer_text = '10'.rjust(3)
+    pygame.time.set_timer(pygame.USEREVENT, 1000)
+    timer_font = pygame.font.SysFont('Consolas', 30)
+
     # start the game loop
     running = True
     while running:
@@ -62,16 +68,28 @@ def dp_main():
                 if event.buttons[0]:  # left mouse button
                     pygame.draw.line(drawing_surface, brush_color, last_pos, event.pos, brush_size)
                     last_pos = event.pos
+            elif event.type == pygame.USEREVENT:
+                    counter -= 1
+                    if counter > 0:
+                        timer_text = str(counter).rjust(3)
+                    else:
+                        timer_text = "time's up!"
+                        pygame.time.delay(1000)
+                        g_player_main()
 
         font = pygame.font.SysFont("Arial", 36)
         txtsurf = font.render(ran_Level1, True, WHITE)
-        screen.blit(txtsurf, (200 - txtsurf.get_width() // 2, 150 - txtsurf.get_height() // 2))
+        screen.blit(txtsurf, (1000 - txtsurf.get_width() // 2, 700 - txtsurf.get_height() // 2))
 
-        rect = pygame.Rect(20, 50, 50, 50)
+        screen.blit(font.render(timer_text, True, (0, 0, 0)), (32, 48))
+
+        rect = pygame.Rect(20, 200, 50, 50)
         pygame.draw.rect(drawing_surface, BLACK, rect)
 
         cursor_img_rect.center = (pygame.mouse.get_pos()[0] + 22, pygame.mouse.get_pos()[1] - 40) # update position
         window.blit(cursor_img, cursor_img_rect)  # draw the cursor
+
+
 
         # update the screen
         pygame.display.update()
