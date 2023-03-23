@@ -15,7 +15,9 @@ def dp_main():
 
 
     global ran_Level1
-    ran_Level1 = random.choice(WORDS_LEVEL1)
+    list_of_words = WORDS_LEVEL1
+    ran_Level1 = random.choice(list_of_words)
+    list_of_words.remove(ran_Level1)
 
     # set up the drawing surface
     drawing_surface = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
@@ -30,7 +32,7 @@ def dp_main():
                                         (CURSOR_WIDTH + 20, CURSOR_HEIGHT))
     cursor_img_rect = cursor_img.get_rect()
 
-    timer_text = '10'.rjust(3)
+    timer_text = str(COUNTER).rjust(3)
     pygame.time.set_timer(pygame.USEREVENT, 1000)
     timer_font = pygame.font.SysFont('Consolas', 30)
 
@@ -73,6 +75,7 @@ def dp_main():
                         finished_drawing = True
 
         if finished_drawing:
+            pygame.time.delay(500)
             g_player_main()
 
         timer_font = pygame.font.SysFont("Arial", 36)
@@ -86,6 +89,10 @@ def dp_main():
 
         cursor_img_rect.center = (pygame.mouse.get_pos()[0] + 22, pygame.mouse.get_pos()[1] - 40) # update position
         screen.blit(cursor_img, cursor_img_rect)  # draw the cursor
+
+        word_font = pygame.font.SysFont('Anything Skribble', WORD_TEXT_SIZE)
+        guess_word = word_font.render(ran_Level1, True, BLACK)
+        screen.blit(guess_word, [WORD_X_POS,WORD_Y_POS])
 
         pygame.image.save(drawing_surface, os.path.join("screenshots", "screenshot.png"))
 

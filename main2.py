@@ -64,7 +64,6 @@ def main():
         #add_image('Images/yellow button.png', BUTTON_X_POS, BUTTON_Y_POS, BUTTON_WIDTH, BUTTON_HEIGHT, screen)
 
         cursor_img_rect.center = pygame.mouse.get_pos()  # update position
-        print(pygame.mouse.get_pos())
         if mouse_in_button(play_button, pygame.mouse.get_pos()):
             add_image('Images/yellow button.png', PLAY_BTN_X_POS, PLAY_BTN_Y_POS, PLAY_BTN_WIDTH, PLAY_BTN_HEIGHT,
                       screen)

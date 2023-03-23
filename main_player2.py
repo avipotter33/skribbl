@@ -22,8 +22,10 @@ def g_player_main():
     color_active = pygame.Color('lightskyblue3')
     color_passive = pygame.Color('chartreuse4')
     color = color_passive
+
     active = False
-    while True:
+    pressed_enter = False
+    while not(pressed_enter):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -34,17 +36,19 @@ def g_player_main():
                 else:
                     active = False
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_BACKSPACE:
+                if event.key == pygame.K_DELETE:
                     user_text = user_text[:-1]
+                elif event.key == pygame.K_RETURN:
+                    pressed_enter = True
                 else:
                     user_text += event.unicode
-        screen.fill((255, 255, 255))
+        screen.fill(WHITE)
         if active:
             color = color_active
         else:
             color = color_passive
         pygame.draw.rect(screen, color, input_rect)
-        text_surface = base_font.render(user_text, True, (255, 255, 255))
+        text_surface = base_font.render(user_text, True, WHITE)
         screen.blit(text_surface, (input_rect.x + 5, input_rect.y + 5))
         input_rect.w = max(100, text_surface.get_width() + 10)
 
@@ -53,5 +57,7 @@ def g_player_main():
 
         pygame.display.flip()
         clock.tick(60)
+
+    print("yay!")
 
 
