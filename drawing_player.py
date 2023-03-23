@@ -4,24 +4,16 @@ import random
 from Constants import *
 from helpers import *
 from main_player2 import *
+
+
 def dp_main():
 
     # initialize Pygame
     pygame.init()
 
-    # set the window size and title
-    # TODO: in constants
-    WINDOW_WIDTH = 640
-    WINDOW_HEIGHT = 480
-    CURSOR_WIDTH, CURSOR_HEIGHT = 100, 100
-
-    window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
     pygame.display.set_caption("Draw on the Screen")
 
-    # set up the colors
-    # TODO: in constants
-    BLACK = (0, 0, 0)
-    WHITE = (255, 255, 255)
+
     global ran_Level1
     ran_Level1 = random.choice(WORDS_LEVEL1)
 
@@ -30,7 +22,6 @@ def dp_main():
     drawing_surface.fill(WHITE)
 
     # set up the drawing tools
-    # TODO: in constants
     brush_size = 5
     brush_color = BLACK
 
@@ -39,15 +30,18 @@ def dp_main():
                                         (CURSOR_WIDTH + 20, CURSOR_HEIGHT))
     cursor_img_rect = cursor_img.get_rect()
 
-    counter = 10
     timer_text = '10'.rjust(3)
     pygame.time.set_timer(pygame.USEREVENT, 1000)
     timer_font = pygame.font.SysFont('Consolas', 30)
 
+    counter = COUNTER
+
+    finished_drawing = False
+
     # start the game loop
     running = True
     while running:
-        window.blit(drawing_surface, (0, 0))
+        screen.blit(drawing_surface, (0, 0))
         # handle events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -72,24 +66,27 @@ def dp_main():
                     counter -= 1
                     if counter > 0:
                         timer_text = str(counter).rjust(3)
-                    else:
+                    elif counter == 0:
                         timer_text = "time's up!"
-                        pygame.time.delay(1000)
-                        g_player_main()
+                        screen.blit(timer_font.render(timer_text, True, WHITE), (32, 48))
+                    else:
+                        finished_drawing = True
 
-        font = pygame.font.SysFont("Arial", 36)
-        txtsurf = font.render(ran_Level1, True, WHITE)
+        if finished_drawing:
+            pygame.time.delay(500)
+            g_player_main()
+
+        timer_font = pygame.font.SysFont("Arial", 36)
+        txtsurf = timer_font.render(ran_Level1, True, WHITE)
         screen.blit(txtsurf, (1000 - txtsurf.get_width() // 2, 700 - txtsurf.get_height() // 2))
 
-        screen.blit(font.render(timer_text, True, (0, 0, 0)), (32, 48))
+        screen.blit(timer_font.render(timer_text, True, (0, 0, 0)), (32, 48))
 
         rect = pygame.Rect(20, 200, 50, 50)
         pygame.draw.rect(drawing_surface, BLACK, rect)
 
         cursor_img_rect.center = (pygame.mouse.get_pos()[0] + 22, pygame.mouse.get_pos()[1] - 40) # update position
-        window.blit(cursor_img, cursor_img_rect)  # draw the cursor
-
-
+        screen.blit(cursor_img, cursor_img_rect)  # draw the cursor
 
         # update the screen
         pygame.display.update()
