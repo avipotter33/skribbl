@@ -52,11 +52,8 @@ def dp_main():
                 if event.button == 1:  # left mouse button
                     mouse_y_pos = pygame.mouse.get_pos()[1]
                     mouse_x_pos = pygame.mouse.get_pos()[0]
-                    if 20 < mouse_x_pos < 20 + 50 and 50 < mouse_y_pos < 100:
-                        pygame.image.save(drawing_surface, os.path.join("screenshots", "screenshot.png"))
-                    else:
-                        pygame.draw.circle(drawing_surface, brush_color, event.pos, brush_size - 2)
-                        last_pos = event.pos
+                    pygame.draw.circle(drawing_surface, brush_color, event.pos, brush_size - 2)
+                    last_pos = event.pos
                 elif event.button == 3:  # right mouse button
                     # undo last path
                     drawing_surface.fill(WHITE)
@@ -83,9 +80,6 @@ def dp_main():
         screen.blit(txtsurf, (1000 - txtsurf.get_width() // 2, 700 - txtsurf.get_height() // 2))
 
         screen.blit(timer_font.render(timer_text, True, (0, 0, 0)), (32, 48))
-
-        rect = pygame.Rect(20, 200, 50, 50)
-        pygame.draw.rect(drawing_surface, BLACK, rect)
 
         cursor_img_rect.center = (pygame.mouse.get_pos()[0] + 22, pygame.mouse.get_pos()[1] - 40) # update position
         screen.blit(cursor_img, cursor_img_rect)  # draw the cursor
