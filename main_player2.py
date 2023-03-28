@@ -4,9 +4,8 @@ import sys
 from Constants import *
 from helpers import *
 from buttons import *
+import drawing_player
 
-# global ran_Level1
-# print(ran_Level1)
 
 cursor_img = pygame.image.load('Images/cursor_image.png')
 cursor_img = pygame.transform.scale(cursor_img,
