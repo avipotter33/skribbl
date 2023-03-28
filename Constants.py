@@ -15,7 +15,7 @@ WHITE = (255, 255, 255)
 LIGHT_GRAY = (134, 134, 134)
 BLUE = (140, 183, 200)
 
-PLAY_TEXT_SIZE = 60
+PLAY_TEXT_SIZE = 40
 PLAY_TEXT = "PLAY"
 
 WORDS_LEVEL1 = ["coin", "star", "ear", "pie", "bus", "window", "ocean", "shield", "bridge", "Earth", "legs", "car", "mountains", "door", "flower"]
