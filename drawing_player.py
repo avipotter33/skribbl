@@ -20,7 +20,6 @@ def dp_main():
 
     pygame.display.set_caption("Draw on the Screen")
 
-
     global ran_Level1
     list_of_words = WORDS_LEVEL1
     ran_Level1 = random.choice(list_of_words)
@@ -48,14 +47,13 @@ def dp_main():
 
     finished_drawing = False
 
+    background = pygame.image.load('Images/background_image.jpg')
+    background = pygame.transform.scale(background,
+                                        (WINDOW_WIDTH, WINDOW_HEIGHT))
 
     # start the game loop
     running = True
     while running:
-        screen.blit(drawing_surface, (0, 0))
-        add_image("images/board.png", BOARD_X_POS, BOARD_Y_POS, BOARD_WIDTH, BOARD_HEIGHT, screen)
-        add_image("images/colors2.png", COLORS_X_POS, COLORS_Y_POS, COLORS_WIDTH, COLORS_HEIGHT, screen)
-        add_image("images/tools.png", TOOLS_X_POS, TOOLS_Y_POS, TOOLS_WIDTH, TOOLS_HEIGHT, screen)
         # handle events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -66,12 +64,11 @@ def dp_main():
                     # mouse_x_pos = pygame.mouse.get_pos()[0]
                     pygame.draw.circle(drawing_surface, brush_color, event.pos, brush_size - 2)
                     last_pos = event.pos
-                elif event.button == 3:  # right mouse button
-                    # undo last path
-                    # drawing_surface.fill(WHITE)
-                    pygame.draw.line(drawing_surface, WHITE, last_pos, last_pos, brush_size)
+                # elif event.button == 3:  # right mouse button
+                #     # undo last path
+                #     # drawing_surface.fill(WHITE)
+                #     pygame.draw.line(drawing_surface, WHITE, last_pos, last_pos, brush_size)
                 mouse_pos = pygame.mouse.get_pos()
-                print(pygame.mouse.get_pos())
                 if mouse_in_button((red_button), mouse_pos):
                     brush_color = RED
                 if mouse_in_button((orange_button), mouse_pos):
@@ -104,9 +101,15 @@ def dp_main():
                         timer_text = str(counter).rjust(3)
                     elif counter == 0:
                         timer_text = "time's up!"
-                        timer_x_pos = TIMER_X_POS - 35
+                        timer_x_pos = TIMER_X_POS - 50
                     else:
                         finished_drawing = True
+
+        screen.blit(drawing_surface, (0, 0))
+
+        add_image("images/board.png", BOARD_X_POS, BOARD_Y_POS, BOARD_WIDTH, BOARD_HEIGHT, screen)
+        add_image("images/colors2.png", COLORS_X_POS, COLORS_Y_POS, COLORS_WIDTH, COLORS_HEIGHT, screen)
+        add_image("images/tools.png", TOOLS_X_POS, TOOLS_Y_POS, TOOLS_WIDTH, TOOLS_HEIGHT, screen)
 
         if finished_drawing:
             pygame.time.delay(500)
@@ -115,7 +118,7 @@ def dp_main():
         timer_font = pygame.font.SysFont("Anything Skribble", TIMER_SIZE)
         txtsurf = timer_font.render(ran_Level1, True, WHITE)
         screen.blit(txtsurf, (1000 - txtsurf.get_width() // 2, 700 - txtsurf.get_height() // 2))
-
+        # screen.blit(txtsurf, (TIMER_X_POS-))
         screen.blit(timer_font.render(timer_text, True, LIGHT_BROWN), (timer_x_pos, TIMER_Y_POS))
 
         cursor_img_rect.center = (pygame.mouse.get_pos()[0] + 22, pygame.mouse.get_pos()[1] - 40) # update position

@@ -5,12 +5,19 @@ from Constants import *
 from helpers import *
 from buttons import *
 
-global ran_Level1
+# global ran_Level1
+# print(ran_Level1)
 
 cursor_img = pygame.image.load('Images/cursor_image.png')
 cursor_img = pygame.transform.scale(cursor_img,
                                     (CURSOR_WIDTH + 20, CURSOR_HEIGHT))
 cursor_img_rect = cursor_img.get_rect()
+
+
+def add_image(img_path, x_pos, y_pos, width, height, screen):
+    img = pygame.image.load(img_path)
+    img = pygame.transform.scale(img, (width, height))
+    screen.blit(img, (x_pos, y_pos))
 
 
 def g_player_main():
@@ -19,12 +26,13 @@ def g_player_main():
     base_font = pygame.font.Font(None, 32)
     user_text = ''
     input_rect = pygame.Rect(COMMENT_BOX_WIDTH, COMMENT_BOX_HEIGHT, COMMENT_BOX_X_POS, COMMENT_BOX_Y_POS)
-    color_active = pygame.Color('lightskyblue3')
-    color_passive = pygame.Color('chartreuse4')
+    color_active = pygame.Color('lightskyblue1')
+    color_passive = pygame.Color('lightskyblue3')
     count = 1
     rect_list = []
     text_list = []
     printing_list = []
+
 
     active = False
     pressed_enter = False
@@ -34,6 +42,7 @@ def g_player_main():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
+                print(pygame.mouse.get_pos())
                 if input_rect.collidepoint(event.pos):
                     active = True
                 else:
@@ -44,11 +53,12 @@ def g_player_main():
                 elif event.key == pygame.K_RETURN:
                     pressed_enter = True
                 else:
-                    printing_list.append(event.unicode)
-                    text_list.insert(count, printing_list)
-                    if len(printing_list) == LINE_MAX_LENGTH:
-                        count += 1
-                        printing_list = []
+                    user_text += event.unicode
+                    # printing_list.append(event.unicode)
+                    # text_list.insert(count, printing_list)
+                    # if len(printing_list) == LINE_MAX_LENGTH:
+                    #     count += 1
+                    #     printing_list = []
 
         screen.fill(WHITE)
         if active:
@@ -56,19 +66,21 @@ def g_player_main():
         else:
             color = color_passive
 
-        for i in range(count):
-            input_rect = pygame.Rect(COMMENT_BOX_X_POS, COMMENT_BOX_Y_POS + COMMENT_BOX_HEIGHT * i, COMMENT_BOX_WIDTH, COMMENT_BOX_HEIGHT)
-            rect_list.append(input_rect)
-        # input_rect.w = max(100, text_surface.get_width() + 10)
+        add_image("images/guessing box.png", CHAT_BTN_X_POS, CHAT_BTN_Y_POS, CHAT_BTN_WIDTH, CHAT_BTN_HEIGHT, screen)
 
-        for rect in rect_list:
-            pygame.draw.rect(screen, color, rect)
+        input_rect = pygame.Rect(COMMENT_BOX_X_POS, COMMENT_BOX_Y_POS, COMMENT_BOX_WIDTH, COMMENT_BOX_HEIGHT)
 
-        for text in range(len(text_list)):
-            print(text_list[text])
-            text_surface = base_font.render("".join(text_list[text]), True,
-                                            WHITE)
-            screen.blit(text_surface, (GUESS_X_POS, GUESS_Y_POS + COMMENT_BOX_HEIGHT * text))
+        pygame.draw.rect(screen, color, input_rect)
+
+        if active:
+            if len(user_text) <= LINE_MAX_LENGTH:
+            # for text in range(len(text_list)):
+            #     print(text_list[text])
+                text_surface = base_font.render(user_text, True, WHITE)
+                screen.blit(text_surface, (GUESS_X_POS, GUESS_Y_POS))
+            else:
+                text_surface = base_font.render(user_text[0:LINE_MAX_LENGTH], True, WHITE)
+                screen.blit(text_surface, (GUESS_X_POS, GUESS_Y_POS))
 
         cursor_img_rect.center = (pygame.mouse.get_pos()[0] + 22, pygame.mouse.get_pos()[1] - 40) # update position
         screen.blit(cursor_img, cursor_img_rect)  # draw the cursor
@@ -76,7 +88,8 @@ def g_player_main():
         pygame.display.flip()
         clock.tick(60)
 
-    print("yay!")
+    if user_text == ran_Level1:
+        print("yay!")
 
 
-# g_player_main()
+#g_player_main()

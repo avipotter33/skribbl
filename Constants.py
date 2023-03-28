@@ -9,9 +9,12 @@ HOME_PAGE_X_POS, HOME_PAGE_Y_POS = 25, 10
 PLAY_BTN_WIDTH, PLAY_BTN_HEIGHT = 140, 70
 PLAY_BTN_X_POS, PLAY_BTN_Y_POS = 280, 260
 
+CHAT_BTN_WIDTH, CHAT_BTN_HEIGHT = 250, 500
+CHAT_BTN_X_POS, CHAT_BTN_Y_POS = 430, 0
+
 CURSOR_WIDTH, CURSOR_HEIGHT = 100, 100
 
-COUNTER = 10
+COUNTER = 3
 
 BLACK = (0, 0, 0)
 GREY = (50, 50, 50)
@@ -33,7 +36,7 @@ BOARD_COLOR = (255, 240, 204)
 PLAY_TEXT_SIZE = 60
 PLAY_TEXT = "PLAY"
 
-WORD_TEXT_SIZE = 50
+WORD_TEXT_SIZE = 40
 
 WORD_X_POS = 61
 WORD_Y_POS = 70
@@ -44,20 +47,20 @@ TIMER_Y_POS = 70
 TIMER_SIZE = 40
 
 WORDS_LEVEL1 = ["coin", "star", "ear", "pie", "bus", "window", "ocean", "shield", "bridge", "Earth", "legs", "car", "mountains", "door", "flower"]
-WORDS_LEVEL2 = ["needle", "waterfall", "school bus", "north", "pool", "popcorn", "glass", "popsicle", "t shirt", "hockey", "bike", "hospital", "picture frame", "smoke", "camel"]
-WORDS_LEVEL3 = ["professor", "half", "toothpasre", "date", "sushi", "birthday", "classroom", "time", "sponge", "skinny", "panda", "cinema", "dawn", "pot", "high five"]
+WORDS_LEVEL2 = ["needle", "waterfall", "school bus", "north", "pool", "popcorn", "glass", "popsicle", "t shirt", "hockey", "bike", "hospital", "smoke", "camel"]
+WORDS_LEVEL3 = ["professor", "half", "toothpaste", "date", "sushi", "birthday", "classroom", "time", "sponge", "skinny", "panda", "cinema", "dawn", "pot", "high five"]
 
 BRUSH_SIZE = 5
 
-LINE_MAX_LENGTH = 20
+LINE_MAX_LENGTH = 10
 
-COMMENT_BOX_X_POS = 200
-COMMENT_BOX_Y_POS = 200
-COMMENT_BOX_WIDTH = 300
-COMMENT_BOX_HEIGHT = 32
+COMMENT_BOX_X_POS = 463
+COMMENT_BOX_Y_POS = 425
+COMMENT_BOX_WIDTH = 150
+COMMENT_BOX_HEIGHT = 36
 
-GUESS_X_POS = 205
-GUESS_Y_POS = 175
+GUESS_X_POS = 463
+GUESS_Y_POS = 433
 
 BOARD_X_POS = -10
 BOARD_Y_POS = 0
