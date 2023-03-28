@@ -26,8 +26,11 @@ def dp_main():
     list_of_words.remove(ran_Level1)
 
     # set up the drawing surface
-    drawing_surface = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
-    drawing_surface.fill(WHITE)
+    # drawing_surface = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
+    # drawing_surface.fill(WHITE)
+
+    drawing_surface = pygame.image.load("images/board.png")
+    drawing_surface = pygame.transform.scale(drawing_surface,(WINDOW_WIDTH,WINDOW_HEIGHT))
 
     # set up the drawing tools
     #TODO: in constants
@@ -51,6 +54,7 @@ def dp_main():
     background = pygame.transform.scale(background,
                                         (WINDOW_WIDTH, WINDOW_HEIGHT))
 
+    # add_image("images/board.png", BOARD_X_POS, BOARD_Y_POS, BOARD_WIDTH, BOARD_HEIGHT, screen)
     # start the game loop
     running = True
     while running:
@@ -106,14 +110,12 @@ def dp_main():
                         finished_drawing = True
 
         screen.blit(drawing_surface, (0, 0))
-
-        add_image("images/board.png", BOARD_X_POS, BOARD_Y_POS, BOARD_WIDTH, BOARD_HEIGHT, screen)
-        add_image("images/colors2.png", COLORS_X_POS, COLORS_Y_POS, COLORS_WIDTH, COLORS_HEIGHT, screen)
-        add_image("images/tools.png", TOOLS_X_POS, TOOLS_Y_POS, TOOLS_WIDTH, TOOLS_HEIGHT, screen)
-
         if finished_drawing:
             pygame.time.delay(500)
             g_player_main()
+
+        add_image("images/colors2.png", COLORS_X_POS, COLORS_Y_POS, COLORS_WIDTH, COLORS_HEIGHT, screen)
+        add_image("images/tools.png", TOOLS_X_POS, TOOLS_Y_POS, TOOLS_WIDTH, TOOLS_HEIGHT, screen)
 
         timer_font = pygame.font.SysFont("Anything Skribble", TIMER_SIZE)
         txtsurf = timer_font.render(ran_Level1, True, WHITE)
