@@ -17,15 +17,15 @@ class Tranlator(drawing_player):
     lang_button_Y_pos = [HE_BTN_Y_POS, EN_BTN_Y_POS, RU_BTN_Y_POS, AR_BTN_Y_POS, FR_BTN_Y_POS, SP_BTN_Y_POS]
 
     lang = 'en'
-    for i in len(lang_button_list):
+    '''for i in len(lang_button_list):
         if ((lang_button_X_pos[i]<= mouse_pos[0] <= lang_button_X_pos[i] + lang_button_width) and (lang_button_Y_pos[i] <= mouse_pos[1] <= lang_button_Y_pos[i] + lang_button_height)):
             lang = lang_button_list[-2:]
 
 
-    TEXTS_TO_TRANSLATE = [PLAY_TEXT, rnd_Level1]
+    TEXTS_TO_TRANSLATE = [PLAY_TEXT, rnd_Level1, chat]
     for i in TEXTS_TO_TRANSLATE:
-        i = ts.translate_text(PLAY_TEXT, to_language=lang)
+        i = ts.translate_text(i, to_language=lang)
+        if (lang == 'he'):
+            i = i[::-1]'''
 
 
-    if(lang == 'he'):
-        PLAY_TEXT = PLAY_TEXT[::-1]
