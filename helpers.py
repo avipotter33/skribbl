@@ -47,3 +47,9 @@ def from_text_to_array(text):
     else:
         text_array.append(text)
     return text_array
+
+
+def add_image(img_path, x_pos, y_pos, width, height, screen):
+    img = pygame.image.load(img_path)
+    img = pygame.transform.scale(img, (width, height))
+    screen.blit(img, (x_pos, y_pos))

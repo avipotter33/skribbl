@@ -4,7 +4,8 @@ import sys
 from Constants import *
 from helpers import *
 from buttons import *
-import drawing_player
+from drawing_player import drawing_player
+
 
 class main_player2(drawing_player):
     def __init__(self):
@@ -20,7 +21,7 @@ class main_player2(drawing_player):
         screen.blit(img, (x_pos, y_pos))
 
 
-    def g_player_main():
+    def g_player_main(self):
         pygame.init()
         clock = pygame.time.Clock()
         base_font = pygame.font.Font(None, 32)
@@ -32,7 +33,6 @@ class main_player2(drawing_player):
         rect_list = []
         text_list = []
         printing_list = []
-
 
         active = False
         pressed_enter = False
@@ -82,14 +82,14 @@ class main_player2(drawing_player):
                     text_surface = base_font.render(user_text[0:LINE_MAX_LENGTH], True, WHITE)
                     screen.blit(text_surface, (GUESS_X_POS, GUESS_Y_POS))
 
-            cursor_img_rect.center = (pygame.mouse.get_pos()[0] + 22, pygame.mouse.get_pos()[1] - 40) # update position
-            screen.blit(cursor_img, cursor_img_rect)  # draw the cursor
+            self.cursor_img_rect.center = (pygame.mouse.get_pos()[0] + 22, pygame.mouse.get_pos()[1] - 40) # update position
+            screen.blit(self.cursor_img, self.cursor_img_rect)  # draw the cursor
 
             pygame.display.flip()
             clock.tick(60)
 
-        if user_text == rnd_Level1:
-            print("yay!")
+        # if user_text == rnd_Level1:
+        #     print("yay!")
 
 
 #g_player_main()

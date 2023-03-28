@@ -3,21 +3,17 @@ import os
 import random
 from Constants import *
 from helpers import *
-from main_player2 import *
 from buttons import *
 
+
 class drawing_player:
-    rnd_Level1
+    rnd_Level1 = 0
+
     def __init__(self):
         pass
 
-    def add_image(img_path, x_pos, y_pos, width, height, screen):
-        img = pygame.image.load(img_path)
-        img = pygame.transform.scale(img, (width, height))
-        screen.blit(img, (x_pos, y_pos))
 
-
-    def dp_main():
+    def dp_main(self):
 
         # initialize Pygame
         pygame.init()
@@ -27,7 +23,7 @@ class drawing_player:
 
         list_of_words = WORDS_LEVEL1
         rnd_Level1 = random.choice(list_of_words)
-        list_of_words.remove(ran_Level1)
+        list_of_words.remove(rnd_Level1)
 
         # set up the drawing surface
         drawing_surface = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
@@ -117,10 +113,9 @@ class drawing_player:
 
             if finished_drawing:
                 pygame.time.delay(500)
-                g_player_main()
 
             timer_font = pygame.font.SysFont("Anything Skribble", TIMER_SIZE)
-            txtsurf = timer_font.render(ran_Level1, True, WHITE)
+            txtsurf = timer_font.render(rnd_Level1, True, WHITE)
             screen.blit(txtsurf, (1000 - txtsurf.get_width() // 2, 700 - txtsurf.get_height() // 2))
             # screen.blit(txtsurf, (TIMER_X_POS-))
             screen.blit(timer_font.render(timer_text, True, LIGHT_BROWN), (timer_x_pos, TIMER_Y_POS))
@@ -129,7 +124,7 @@ class drawing_player:
             screen.blit(cursor_img, cursor_img_rect)  # draw the cursor
 
             word_font = pygame.font.SysFont('Anything Skribble', WORD_TEXT_SIZE)
-            guess_word = word_font.render(ran_Level1, True, LIGHT_BROWN)
+            guess_word = word_font.render(rnd_Level1, True, LIGHT_BROWN)
             screen.blit(guess_word, [WORD_X_POS,WORD_Y_POS])
 
             pygame.image.save(drawing_surface, os.path.join("screenshots", "screenshot.png"))

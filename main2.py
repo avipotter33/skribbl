@@ -7,12 +7,14 @@ from buttons import *
 import translators as ts
 from drawing_player import *
 
-
 class home_screen:
+    dr_player = drawing_player()
+    change_language = True
+    PLAY_TEXT = ts.translate_text(PLAY_TEXT, to_language='he')
+    play_button = buttons.play_button
+
     def __init__(self):
-        change_language = True
-        PLAY_TEXT = ts.translate_text(PLAY_TEXT, to_language='he')
-        play_button = buttons.play_button
+        pass
 
     def add_image(img_path, x_pos, y_pos, width, height, screen):
         img = pygame.image.load(img_path)
@@ -20,7 +22,7 @@ class home_screen:
         screen.blit(img, (x_pos, y_pos))
 
 
-    def main():
+    def main(self):
         screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.RESIZABLE)
         # Set up the game display, clock and headline
         pygame.init()
@@ -51,7 +53,7 @@ class home_screen:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     mouse_pos = event.pos
                     if mouse_in_button(play_button, mouse_pos):
-                        dp_main()
+                        drawing_player.dp_main(self)
             screen.fill(BLUE)
             screen.blit(background, (image_x_index, 0))
 
@@ -85,5 +87,3 @@ class home_screen:
 
         pygame.quit()
         quit()
-
-main()
