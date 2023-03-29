@@ -96,14 +96,12 @@ class drawing_player:
                         brush_color = BLACK
                     if mouse_in_button((eraser_button), mouse_pos):
                         brush_color = BOARD_COLOR
-                elif event.type == pygame.MOUSEMOTION and mouse_in_button(board_button, mouse_pos) and not(mouse_in_button(colors, mouse_pos)):
+                elif event.type == pygame.MOUSEMOTION and mouse_in_button(board_button, mouse_pos):
                     if event.buttons[0]:  # left mouse button
                         event_pos = event.pos
                         if not (mouse_in_button(board_button, event_pos)):
                             event_pos = last_pos_in_board(event_pos)
-                        if mouse_in_button(colors, mouse_pos):
-                            event_pos = last_pos_outside_color_palette(event_pos)
-                        if len(last_pos) != 0:
+                        if len(last_pos) != 0 and not(mouse_in_button(colors, event_pos)) and not(mouse_in_button(colors, last_pos)) and not(mouse_in_button(tools_button, event_pos)) and not(mouse_in_button(tools_button, last_pos)):
                             pygame.draw.line(drawing_surface, brush_color, last_pos, event_pos, brush_size)
                         last_pos = event_pos
                 elif event.type == pygame.USEREVENT:
