@@ -1,6 +1,6 @@
 # Width and Height of the project window
 WINDOW_WIDTH, WINDOW_HEIGHT = 700, 500
-
+LANG_WIDTH, LANG_HEIGHT = 500, 400
 CURSOR_WIDTH, CURSOR_HEIGHT = 150, 100
 
 HOME_PAGE_WIDTH, HOME_PAGE_HEIGHT = 650, 250
@@ -161,3 +161,5 @@ SEND_BUTTON_WIDTH = 17
 SEND_BUTTON_HEIGHT = 18
 
 NUM_OF_ROUNDS = 3
+
+lang_text = "choose the language you want to play in!"
