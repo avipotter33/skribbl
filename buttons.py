@@ -37,3 +37,5 @@ button_ru = Button(RU_BTN_X_POS, RU_BTN_Y_POS, lang_button_width, lang_button_he
 button_ar = Button(AR_BTN_X_POS, AR_BTN_Y_POS, lang_button_width, lang_button_height)
 button_fr = Button(FR_BTN_X_POS, FR_BTN_Y_POS, lang_button_width, lang_button_height)
 button_sp = Button(SP_BTN_X_POS, SP_BTN_Y_POS, lang_button_width, lang_button_height)
+
+board_button = Button(BOARD_X_POS, BOARD_Y_POS, BOARD_WIDTH, BOARD_HEIGHT)

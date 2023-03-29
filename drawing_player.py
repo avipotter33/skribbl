@@ -55,24 +55,23 @@ class drawing_player:
         background = pygame.transform.scale(background,
                                             (WINDOW_WIDTH, WINDOW_HEIGHT))
 
+        clock = pygame.time.Clock()
+
         # start the game loop
         running = True
         while running:
+            mouse_pos = pygame.mouse.get_pos()
             # handle events
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if event.button == 1:  # left mouse button
-                        # mouse_y_pos = pygame.mouse.get_pos()[1]
-                        # mouse_x_pos = pygame.mouse.get_pos()[0]
-                        pygame.draw.circle(drawing_surface, brush_color, event.pos, brush_size - 2)
-                        last_pos = event.pos
-                    # elif event.button == 3:  # right mouse button
-                    #     # undo last path
-                    #     # drawing_surface.fill(WHITE)
-                    #     pygame.draw.line(drawing_surface, WHITE, last_pos, last_pos, brush_size)
-                    mouse_pos = pygame.mouse.get_pos()
+                    if event.button == 1 and mouse_in_button(board_button, mouse_pos):
+                        event_pos = event.pos
+                        if not(mouse_in_button(board_button, event_pos)):
+                            event_pos = last_pos_in_board(event_pos)
+                        pygame.draw.circle(drawing_surface, brush_color, event_pos, brush_size - 2)
+                        last_pos = event_pos
                     if mouse_in_button((red_button), mouse_pos):
                         brush_color = RED
                     if mouse_in_button((orange_button), mouse_pos):
@@ -95,10 +94,13 @@ class drawing_player:
                         brush_color = BLACK
                     if mouse_in_button((eraser_button), mouse_pos):
                         brush_color = BOARD_COLOR
-                elif event.type == pygame.MOUSEMOTION:
+                elif event.type == pygame.MOUSEMOTION and mouse_in_button(board_button, mouse_pos):
                     if event.buttons[0]:  # left mouse button
-                        pygame.draw.line(drawing_surface, brush_color, last_pos, event.pos, brush_size)
-                        last_pos = event.pos
+                        event_pos = event.pos
+                        if not (mouse_in_button(board_button, event_pos)):
+                            event_pos = last_pos_in_board(event_pos)
+                        pygame.draw.line(drawing_surface, brush_color, last_pos, event_pos, brush_size)
+                        last_pos = event_pos
                 elif event.type == pygame.USEREVENT:
                         counter -= 1
                         if counter > 0:
@@ -124,9 +126,12 @@ class drawing_player:
             screen.blit(txtsurf, (1000 - txtsurf.get_width() // 2, 700 - txtsurf.get_height() // 2))
             # screen.blit(txtsurf, (TIMER_X_POS-))
 
-            print(pygame.mouse.get_pos())
-            cursor_img_rect.center = (pygame.mouse.get_pos()[0] + 35, pygame.mouse.get_pos()[1] + 5) # update position
-            screen.blit(cursor_img, cursor_img_rect)  # draw the cursor
+            if mouse_in_button(board_button, mouse_pos):
+                pygame.mouse.set_visible(False)
+                cursor_img_rect.center = (pygame.mouse.get_pos()[0] + 35, pygame.mouse.get_pos()[1] + 5) # update position
+                screen.blit(cursor_img, cursor_img_rect)  # draw the cursor
+            else:
+                pygame.mouse.set_visible(True)
 
             word_font = pygame.font.SysFont('Anything Skribble', WORD_TEXT_SIZE)
             guess_word = word_font.render(rnd_Level1, True, LIGHT_BROWN)
@@ -137,6 +142,8 @@ class drawing_player:
             # update the screen
             pygame.display.update()
             pygame.display.flip()
+
+            clock.tick(60)
 
         # quit Pygame
         pygame.quit()

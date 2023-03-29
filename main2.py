@@ -55,7 +55,7 @@ class home_screen:
                     mouse_pos = event.pos
                     if mouse_in_button(play_button, mouse_pos):
                         drawing_player.dp_main(self)
-            # screen.fill(BLUE)
+            screen.fill(BLUE)
             screen.blit(background, (image_x_index, 0))
 
             if image_x_index != (0 - WINDOW_WIDTH):
