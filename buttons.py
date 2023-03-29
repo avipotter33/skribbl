@@ -7,7 +7,7 @@ play_button = Button(PLAY_BTN_X_POS + 20,
                      PLAY_BTN_WIDTH,
                      PLAY_BTN_HEIGHT)
 
-colors = Button(COLORS_X_POS, COLORS_Y_POS - 15, COLORS_WIDTH, COLORS_HEIGHT)
+colors = Button(COLORS_X_POS, COLORS_Y_POS - 25, COLORS_WIDTH, COLORS_HEIGHT)
 
 red_button = Button(COLOR_CIRCLE_X_POS, COLOR_CIRCLE_Y_POS, COLOR_CIRCLE_WIDTH, COLOR_CIRCLE_HEIGHT)
 

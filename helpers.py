@@ -96,3 +96,14 @@ def last_pos_in_board(event_pos):
     elif event_pos[1] >= BOARD_Y_POS + BOARD_HEIGHT:
         event_pos[1] = BOARD_Y_POS + BOARD_HEIGHT - 1
         return event_pos
+
+
+def last_pos_outside_color_palette(event_pos):
+    event_pos = list(event_pos)
+    if event_pos[1] >= BOARD_Y_POS + COLORS_HEIGHT:
+        event_pos[1] = BOARD_Y_POS  + COLORS_HEIGHT + 1
+        return event_pos
+    elif event_pos[0] <= BOARD_X_POS + COLORS_WIDTH:
+        print("meow")
+        event_pos[0] = BOARD_X_POS + COLORS_WIDTH + 1
+        return event_pos

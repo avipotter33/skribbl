@@ -101,6 +101,8 @@ class drawing_player:
                         event_pos = event.pos
                         if not (mouse_in_button(board_button, event_pos)):
                             event_pos = last_pos_in_board(event_pos)
+                        if mouse_in_button(colors, mouse_pos):
+                            event_pos = last_pos_outside_color_palette(event_pos)
                         if len(last_pos) != 0:
                             pygame.draw.line(drawing_surface, brush_color, last_pos, event_pos, brush_size)
                         last_pos = event_pos
