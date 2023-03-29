@@ -30,7 +30,7 @@ class drawing_player:
         # drawing_surface.fill(WHITE)
         drawing_surface = pygame.image.load("Images/board.png")
         drawing_surface =  pygame.transform.scale(drawing_surface,
-                                            (WINDOW_WIDTH, WINDOW_HEIGHT))
+                                            (WINDOW_WIDTH + 50, WINDOW_HEIGHT + 20))
 
         # set up the drawing tools
         #TODO: in constants
@@ -114,7 +114,7 @@ class drawing_player:
                         else:
                             finished_drawing = True
 
-            screen.blit(drawing_surface, (13, 45))
+            screen.blit(drawing_surface, (0, 25))
 
             # add_image("images/board.png", BOARD_X_POS, BOARD_Y_POS, BOARD_WIDTH, BOARD_HEIGHT, screen)
             add_image("images/colors2.png", COLORS_X_POS, COLORS_Y_POS, COLORS_WIDTH, COLORS_HEIGHT, screen)
@@ -128,7 +128,7 @@ class drawing_player:
 
             if mouse_in_button(board_button, mouse_pos):
                 pygame.mouse.set_visible(False)
-                cursor_img_rect.center = (mouse_pos[0] + 35, mouse_pos[1] + 5) # update position
+                cursor_img_rect.center = (mouse_pos[0] + 20, mouse_pos[1] - 13) # update position
                 screen.blit(cursor_img, cursor_img_rect)  # draw the cursor
             else:
                 pygame.mouse.set_visible(True)

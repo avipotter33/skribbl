@@ -47,15 +47,15 @@ BOARD_COLOR = (255, 240, 204)
 PLAY_TEXT_SIZE = 60
 PLAY_TEXT = "PLAY"
 
-WORD_TEXT_SIZE = 40
+WORD_TEXT_SIZE = 37
 
-WORD_X_POS = 61
-WORD_Y_POS = 70
+WORD_X_POS = 70
+WORD_Y_POS = 83
 
 TIMER_X_POS = 320
-TIMER_Y_POS = 70
+TIMER_Y_POS = 83
 
-TIMER_SIZE = 40
+TIMER_SIZE = 37
 
 WORDS_LEVEL1 = ["coin", "star", "ear", "pie", "bus", "window", "ocean", "shield", "bridge", "Earth", "legs", "car", "mountains", "door", "flower"]
 WORDS_LEVEL2 = ["needle", "waterfall", "school bus", "north", "pool", "popcorn", "glass", "popsicle", "t shirt", "hockey", "bike", "hospital", "smoke", "camel"]
@@ -73,23 +73,23 @@ COMMENT_BOX_HEIGHT = 36
 GUESS_X_POS = 463
 GUESS_Y_POS = 433
 
-BOARD_X_POS = 68
-BOARD_Y_POS = 90
-BOARD_WIDTH = 520
+BOARD_X_POS = 65
+BOARD_Y_POS = 91
+BOARD_WIDTH = 572
 BOARD_HEIGHT = 280
 
-COLORS_X_POS = 59
-COLORS_Y_POS = 326
+COLORS_X_POS = 51
+COLORS_Y_POS = 320
 COLORS_WIDTH = 200
 COLORS_HEIGHT = 100
 
 COLOR_CIRCLE_X_POS = 65
-COLOR_CIRCLE_Y_POS = 341
+COLOR_CIRCLE_Y_POS = 288
 COLOR_CIRCLE_WIDTH = 35
-COLOR_CIRCLE_HEIGHT = 33
+COLOR_CIRCLE_HEIGHT = 36
 
-TOOLS_X_POS = 453
-TOOLS_Y_POS = 356
+TOOLS_X_POS = 485
+TOOLS_Y_POS = 353
 TOOLS_WIDTH = 170
 TOOLS_HEIGHT = 60
 
