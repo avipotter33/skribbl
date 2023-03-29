@@ -6,10 +6,9 @@ from helpers import *
 from buttons import *
 import translators as ts
 from drawing_player import *
-from Translator import *
+# from Translator import *
 
 class home_screen:
-    dr_player = drawing_player()
     change_language = True
     PLAY_TEXT = ts.translate_text(PLAY_TEXT, to_language='he')
     mouse_pos = [0, 0]
@@ -51,7 +50,8 @@ class home_screen:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     mouse_pos = event.pos
                     if mouse_in_button(play_button, mouse_pos):
-                        drawing_player.dp_main(self)
+                        dr_player = drawing_player("shnizel")
+                        dr_player.dp_main()
             screen.fill(BLUE)
             screen.blit(background, (image_x_index, 0))
 

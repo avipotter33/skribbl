@@ -9,14 +9,14 @@ from Comment import Comment
 
 
 class main_player2(drawing_player):
-    def __init__(self):
+    def __init__(self, image):
         self.cursor_img = pygame.image.load('Images/cursor_image.png')
         self.cursor_img = pygame.transform.scale(self.cursor_img,
                                             (CURSOR_WIDTH + 20, CURSOR_HEIGHT))
         self.cursor_img_rect = self.cursor_img.get_rect()
         self.comments = []
         self.comments_display_index = 0
-
+        self.drawing_board = image
 
     def add_image(img_path, x_pos, y_pos, width, height, screen):
         img = pygame.image.load(img_path)
@@ -51,14 +51,14 @@ class main_player2(drawing_player):
         clock = pygame.time.Clock()
         base_font = pygame.font.Font(None, TEXT_WHILE_WRITING_SIZE)
         user_text = ''
-        input_rect = pygame.Rect(COMMENT_BOX_WIDTH, COMMENT_BOX_HEIGHT, COMMENT_BOX_X_POS, COMMENT_BOX_Y_POS)
-        color_active = pygame.Color('lightskyblue1')
-        color_passive = pygame.Color('lightskyblue3')
         timer_text = str(COUNTER).rjust(3)
         pygame.time.set_timer(pygame.USEREVENT, 1000)
         timer_font = pygame.font.SysFont('Consolas', 30)
-        timer_x_pos = TIMER_X_POS
+        timer_x_pos = GUESSING_TIMER_X_POS
         counter = COUNTER
+        background = pygame.image.load('Images/background_image.jpg')
+        background = pygame.transform.scale(background,
+                                            (WINDOW_WIDTH, WINDOW_HEIGHT))
 
         while True:
             pressed_enter = False
@@ -69,52 +69,46 @@ class main_player2(drawing_player):
                         pygame.quit()
                         sys.exit()
                     if event.type == pygame.MOUSEBUTTONDOWN:
-                        print(pygame.mouse.get_pos())
-                        if input_rect.collidepoint(event.pos):
-                            active = True
-                    if event.type == pygame.KEYDOWN and active:
+                        mouse_pos = pygame.mouse.get_pos()
+                        if mouse_in_button(send_button, mouse_pos):
+                            pressed_enter = True
+                    if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_DELETE or event.key == pygame.K_BACKSPACE:
                             user_text = user_text[:-1]
                         elif event.key == pygame.K_RETURN:
                             pressed_enter = True
                         else:
                             user_text += event.unicode
-                            # printing_list.append(event.unicode)
-                            # text_list.insert(count, printing_list)
-                            # if len(printing_list) == LINE_MAX_LENGTH:
-                            #     count += 1
-                            #     printing_list = []
                     elif event.type == pygame.USEREVENT:
                         counter -= 1
                         if counter > 0:
                             timer_text = str(counter).rjust(3)
                         elif counter == 0:
                             timer_text = "time's up!"
-                            timer_x_pos = TIMER_X_POS - 50
+                            timer_x_pos = GUESSING_TIMER_X_POS - 42
                         else:
                             finished_drawing = True
 
                 screen.fill(WHITE)
-                if active:
-                    color = color_active
-                else:
-                    color = color_passive
+                screen.blit(background, (0, 0))
 
-                timer_font = pygame.font.SysFont("Anything Skribble", TIMER_SIZE)
-                txtsurf = timer_font.render(timer_text, True, BLACK)
-                screen.blit(txtsurf, (1000 - txtsurf.get_width() // 2, 700 - txtsurf.get_height() // 2))
+                img = pygame.transform.scale(self.drawing_board, (BOARD_DISPLAYING_DRAWING_WIDTH, BOARD_DISPLAYING_DRAWING_HEIGHT))
+                screen.blit(img, (BOARD_DISPLAYING_DRAWING_X_POS, BOARD_DISPLAYING_DRAWING_Y_POS))
 
                 add_image("images/guessing box.png", CHAT_BTN_X_POS, CHAT_BTN_Y_POS, CHAT_BTN_WIDTH, CHAT_BTN_HEIGHT, screen)
+                add_image("images/score box.png", SCORE_BOX_X_POS, SCORE_BOX_Y_POS, SCORE_BOX_WIDTH, SCORE_BOX_HEIGHT,
+                          screen)
 
-                input_rect = pygame.Rect(COMMENT_BOX_X_POS, COMMENT_BOX_Y_POS, COMMENT_BOX_WIDTH, COMMENT_BOX_HEIGHT)
+                timer_font = pygame.font.SysFont("Anything Skribble", TIMER_SIZE)
+                screen.blit(timer_font.render(timer_text, True, BLUE), (timer_x_pos, GUESSING_TIMER_Y_POS))
 
-                pygame.draw.rect(screen, color, input_rect)
+                score_font = pygame.font.SysFont("Anything Skribble", SCORE_SIZE)
+                screen.blit(score_font.render(SCORE_TEXT, True, BLUE), (SCORE_X_POS, SCORE_Y_POS))
 
-                if active:
-                    if len(user_text) > LINE_MAX_LENGTH:
-                        user_text = user_text[0:LINE_MAX_LENGTH]
-                    text_surface = base_font.render(user_text, True, WHITE)
-                    screen.blit(text_surface, (GUESS_X_POS, GUESS_Y_POS))
+                if len(user_text) > LINE_MAX_LENGTH:
+                    user_text = user_text[0:LINE_MAX_LENGTH]
+                text_surface = base_font.render(user_text, True, BLACK)
+                screen.blit(text_surface, (GUESS_X_POS, GUESS_Y_POS))
 
                 self.display_comments()
 

@@ -8,8 +8,8 @@ from buttons import *
 
 class drawing_player:
 
-    def __init__(self):
-        pass
+    def __init__(self, rnd_word):
+        self.rnd_level1 = rnd_word
 
 
     def dp_main(self):
@@ -19,13 +19,6 @@ class drawing_player:
         pygame.display.set_caption("Draw on the Screen")
 
 
-        list_of_words = WORDS_LEVEL1
-        rnd_Level1 = random.choice(list_of_words)
-        list_of_words.remove(rnd_Level1)
-
-        # set up the drawing surface
-        # drawing_surface = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
-        # drawing_surface.fill(WHITE)
         drawing_surface = pygame.image.load("Images/board.png")
         drawing_surface =  pygame.transform.scale(drawing_surface,
                                             (WINDOW_WIDTH + 50, WINDOW_HEIGHT + 20))
@@ -39,7 +32,7 @@ class drawing_player:
                                             (CURSOR_WIDTH + 20, CURSOR_HEIGHT))
         cursor_img_rect = cursor_img.get_rect()
 
-        timer_text = str(COUNTER).rjust(3)
+        timer_text = "READY?"
         pygame.time.set_timer(pygame.USEREVENT, 1000)
         timer_font = pygame.font.SysFont('Consolas', 30)
         timer_x_pos = TIMER_X_POS
@@ -47,9 +40,9 @@ class drawing_player:
 
         finished_drawing = False
 
-        background = pygame.image.load('Images/background_image.jpg')
-        background = pygame.transform.scale(background,
-                                            (WINDOW_WIDTH, WINDOW_HEIGHT))
+        # background = pygame.image.load('Images/background_image.jpg')
+        # background = pygame.transform.scale(background,
+        #                                     (WINDOW_WIDTH, WINDOW_HEIGHT))
 
         clock = pygame.time.Clock()
 
@@ -119,12 +112,17 @@ class drawing_player:
                             pygame.draw.line(drawing_surface, brush_color, last_pos, event_pos, brush_size)
                         last_pos = event_pos
                 elif event.type == pygame.USEREVENT:
+                    if str(timer_text) == "READY?":
+                        timer_text = "DRAW!"
+                    elif str(timer_text) == "DRAW!":
+                        timer_text = str(COUNTER).rjust(3)
+                    else:
                         counter -= 1
                         if counter > 0:
                             timer_text = str(counter).rjust(3)
                         elif counter == 0:
                             timer_text = "time's up!"
-                            timer_x_pos = TIMER_X_POS - 50
+                            timer_x_pos = TIMER_X_POS - 46
                         else:
                             finished_drawing = True
 
@@ -149,7 +147,7 @@ class drawing_player:
                 pygame.mouse.set_visible(True)
 
             word_font = pygame.font.SysFont('Anything Skribble', WORD_TEXT_SIZE)
-            guess_word = word_font.render(rnd_Level1, True, LIGHT_BROWN)
+            guess_word = word_font.render(self.rnd_level1, True, LIGHT_BROWN)
             screen.blit(guess_word, [WORD_X_POS,WORD_Y_POS])
 
             pygame.image.save(drawing_surface, os.path.join("screenshots", "screenshot.png"))
