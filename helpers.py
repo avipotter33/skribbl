@@ -85,18 +85,14 @@ def display_comments(self):
 def last_pos_in_board(event_pos):
     event_pos = list(event_pos)
     if event_pos[0] <= BOARD_X_POS:
-        print("meow")
         event_pos[0] = BOARD_X_POS + 1
         return event_pos
-    elif event_pos[0] <= BOARD_X_POS + BOARD_WIDTH:
-        # print("meow")
+    elif event_pos[0] >= BOARD_X_POS + BOARD_WIDTH:
         event_pos[0] = BOARD_X_POS + BOARD_WIDTH - 1
         return event_pos
     elif event_pos[1] <= BOARD_Y_POS:
-        # print("meow")
         event_pos[1] = BOARD_Y_POS + 1
         return event_pos
-    elif event_pos[1] > BOARD_Y_POS + BOARD_HEIGHT:
-        # print("meow")
+    elif event_pos[1] >= BOARD_Y_POS + BOARD_HEIGHT:
         event_pos[1] = BOARD_Y_POS + BOARD_HEIGHT - 1
         return event_pos

@@ -121,13 +121,13 @@ class drawing_player:
 
             timer_font = pygame.font.SysFont("Anything Skribble", TIMER_SIZE)
             screen.blit(timer_font.render(timer_text, True, LIGHT_BROWN), (timer_x_pos, TIMER_Y_POS))
-            txtsurf = timer_font.render(rnd_Level1, True, WHITE)
-            screen.blit(txtsurf, (1000 - txtsurf.get_width() // 2, 700 - txtsurf.get_height() // 2))
+            # txtsurf = timer_font.render(rnd_Level1, True, WHITE)
+            # screen.blit(txtsurf, (1000 - txtsurf.get_width() // 2, 700 - txtsurf.get_height() // 2))
             # screen.blit(txtsurf, (TIMER_X_POS-))
 
             if mouse_in_button(board_button, mouse_pos):
                 pygame.mouse.set_visible(False)
-                cursor_img_rect.center = (pygame.mouse.get_pos()[0] + 35, pygame.mouse.get_pos()[1] + 5) # update position
+                cursor_img_rect.center = (mouse_pos[0] + 35, mouse_pos[1] + 5) # update position
                 screen.blit(cursor_img, cursor_img_rect)  # draw the cursor
             else:
                 pygame.mouse.set_visible(True)
