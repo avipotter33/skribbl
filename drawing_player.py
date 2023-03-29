@@ -62,6 +62,7 @@ class drawing_player:
         running = True
         while running:
             mouse_pos = pygame.mouse.get_pos()
+            print(mouse_pos)
             # handle events
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -71,7 +72,7 @@ class drawing_player:
                         event_pos = event.pos
                         if not(mouse_in_button(board_button, event_pos)):
                             event_pos = last_pos_in_board(event_pos)
-                        if len(last_pos) != 0:
+                        if not(mouse_in_button(colors, event_pos)) and not(mouse_in_button(tools_button, event_pos)):
                             pygame.draw.circle(drawing_surface, brush_color, event_pos, brush_size - 2)
                         last_pos = event_pos
                     if mouse_in_button((red_button), mouse_pos):
@@ -119,6 +120,7 @@ class drawing_player:
             # add_image("images/board.png", BOARD_X_POS, BOARD_Y_POS, BOARD_WIDTH, BOARD_HEIGHT, screen)
             add_image("images/colors2.png", COLORS_X_POS, COLORS_Y_POS, COLORS_WIDTH, COLORS_HEIGHT, screen)
             add_image("images/tools.png", TOOLS_X_POS, TOOLS_Y_POS, TOOLS_WIDTH, TOOLS_HEIGHT, screen)
+            add_image("images/sizes.png", SIZES_X_POS, SIZES_Y_POS, SIZES_WIDTH, SIZES_HEIGHT, screen)
 
             # if finished_drawing:
             #     pygame.time.delay(3000)
