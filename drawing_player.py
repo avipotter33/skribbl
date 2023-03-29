@@ -33,8 +33,7 @@ class drawing_player:
                                             (WINDOW_WIDTH + 50, WINDOW_HEIGHT + 20))
 
         # set up the drawing tools
-        #TODO: in constants
-        brush_size = 5
+        brush_size = MEDIUM_BRUSH_SIZE
         brush_color = BLACK
 
         cursor_img = pygame.image.load('Images/cursor_image.png')
@@ -73,7 +72,12 @@ class drawing_player:
                         if not(mouse_in_button(board_button, event_pos)):
                             event_pos = last_pos_in_board(event_pos)
                         if not(mouse_in_button(colors, event_pos)) and not(mouse_in_button(tools_button, event_pos)):
-                            pygame.draw.circle(drawing_surface, brush_color, event_pos, brush_size - 2)
+                            if brush_size == BIG_BRUSH_SIZE:
+                                pygame.draw.circle(drawing_surface, brush_color, event_pos, brush_size - 10)
+                            if brush_size == MEDIUM_BRUSH_SIZE:
+                                pygame.draw.circle(drawing_surface, brush_color, event_pos, brush_size - 5)
+                            if brush_size == SMALL_BRUSH_SIZE:
+                                pygame.draw.circle(drawing_surface, brush_color, event_pos, brush_size - 2)
                         last_pos = event_pos
                     if mouse_in_button((red_button), mouse_pos):
                         brush_color = RED
@@ -97,6 +101,17 @@ class drawing_player:
                         brush_color = BLACK
                     if mouse_in_button((eraser_button), mouse_pos):
                         brush_color = BOARD_COLOR
+                    if mouse_in_button(big_circle, mouse_pos):
+                        brush_size = BIG_BRUSH_SIZE
+                    if mouse_in_button(medium_circle, mouse_pos):
+                        brush_size = MEDIUM_BRUSH_SIZE
+                    if mouse_in_button(small_circle, mouse_pos):
+                        brush_size = SMALL_BRUSH_SIZE
+                    if mouse_in_button(trash_can_button, mouse_pos):
+                        print("meow")
+                        drawing_surface = pygame.image.load("Images/board.png")
+                        drawing_surface = pygame.transform.scale(drawing_surface,
+                                                                 (WINDOW_WIDTH + 50, WINDOW_HEIGHT + 20))
                 elif event.type == pygame.MOUSEMOTION and mouse_in_button(board_button, mouse_pos):
                     if event.buttons[0]:  # left mouse button
                         event_pos = event.pos
