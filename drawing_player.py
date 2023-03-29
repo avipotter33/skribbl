@@ -13,6 +13,7 @@ class drawing_player:
 
 
     def dp_main(self):
+        rnd_level1 = ""
 
         # initialize Pygame
         pygame.init()
@@ -25,8 +26,11 @@ class drawing_player:
         list_of_words.remove(rnd_Level1)
 
         # set up the drawing surface
-        drawing_surface = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
-        drawing_surface.fill(WHITE)
+        # drawing_surface = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
+        # drawing_surface.fill(WHITE)
+        drawing_surface = pygame.image.load("Images/board.png")
+        drawing_surface =  pygame.transform.scale(drawing_surface,
+                                            (WINDOW_WIDTH, WINDOW_HEIGHT))
 
         # set up the drawing tools
         #TODO: in constants
@@ -104,22 +108,23 @@ class drawing_player:
                         else:
                             finished_drawing = True
 
-            screen.blit(drawing_surface, (0, 0))
+            screen.blit(drawing_surface, (13, 45))
 
-            add_image("images/board.png", BOARD_X_POS, BOARD_Y_POS, BOARD_WIDTH, BOARD_HEIGHT, screen)
+            # add_image("images/board.png", BOARD_X_POS, BOARD_Y_POS, BOARD_WIDTH, BOARD_HEIGHT, screen)
             add_image("images/colors2.png", COLORS_X_POS, COLORS_Y_POS, COLORS_WIDTH, COLORS_HEIGHT, screen)
             add_image("images/tools.png", TOOLS_X_POS, TOOLS_Y_POS, TOOLS_WIDTH, TOOLS_HEIGHT, screen)
 
-            if finished_drawing:
-                pygame.time.delay(500)
+            # if finished_drawing:
+            #     pygame.time.delay(3000)
 
             timer_font = pygame.font.SysFont("Anything Skribble", TIMER_SIZE)
+            screen.blit(timer_font.render(timer_text, True, LIGHT_BROWN), (timer_x_pos, TIMER_Y_POS))
             txtsurf = timer_font.render(rnd_Level1, True, WHITE)
             screen.blit(txtsurf, (1000 - txtsurf.get_width() // 2, 700 - txtsurf.get_height() // 2))
             # screen.blit(txtsurf, (TIMER_X_POS-))
-            screen.blit(timer_font.render(timer_text, True, LIGHT_BROWN), (timer_x_pos, TIMER_Y_POS))
 
-            cursor_img_rect.center = (pygame.mouse.get_pos()[0] + 22, pygame.mouse.get_pos()[1] - 40) # update position
+            print(pygame.mouse.get_pos())
+            cursor_img_rect.center = (pygame.mouse.get_pos()[0] + 35, pygame.mouse.get_pos()[1] + 5) # update position
             screen.blit(cursor_img, cursor_img_rect)  # draw the cursor
 
             word_font = pygame.font.SysFont('Anything Skribble', WORD_TEXT_SIZE)
