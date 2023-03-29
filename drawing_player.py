@@ -13,8 +13,6 @@ class drawing_player:
 
 
     def dp_main(self):
-        rnd_level1 = ""
-
         # initialize Pygame
         pygame.init()
 

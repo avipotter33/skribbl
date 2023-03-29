@@ -31,6 +31,7 @@ while True:
     player1.send(b'ok')
     player2.send(data)
 
+
 # close the connections and the socket object
 player1.close()
 player2.close()

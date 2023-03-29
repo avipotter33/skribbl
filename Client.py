@@ -44,6 +44,7 @@ WHITE = (255, 255, 255)
 running = True
 
 if player_index == 0:
+    #TODO: screen setup here
     # set up the drawing surface
     drawing_surface = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
     drawing_surface.fill(WHITE)
