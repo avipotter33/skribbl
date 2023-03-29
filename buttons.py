@@ -7,6 +7,8 @@ play_button = Button(PLAY_BTN_X_POS + 20,
                      PLAY_BTN_WIDTH,
                      PLAY_BTN_HEIGHT)
 
+colors = Button(COLORS_X_POS, COLORS_Y_POS - 15, COLORS_WIDTH, COLORS_HEIGHT)
+
 red_button = Button(COLOR_CIRCLE_X_POS, COLOR_CIRCLE_Y_POS, COLOR_CIRCLE_WIDTH, COLOR_CIRCLE_HEIGHT)
 
 orange_button = Button(COLOR_CIRCLE_X_POS + COLOR_CIRCLE_WIDTH, COLOR_CIRCLE_Y_POS, COLOR_CIRCLE_WIDTH, COLOR_CIRCLE_HEIGHT)
@@ -38,4 +40,4 @@ button_ar = Button(AR_BTN_X_POS, AR_BTN_Y_POS, lang_button_width, lang_button_he
 button_fr = Button(FR_BTN_X_POS, FR_BTN_Y_POS, lang_button_width, lang_button_height)
 button_sp = Button(SP_BTN_X_POS, SP_BTN_Y_POS, lang_button_width, lang_button_height)
 
-board_button = Button(BOARD_X_POS, BOARD_Y_POS, BOARD_WIDTH, BOARD_HEIGHT)
+board_button = Button(BOARD_X_POS, BOARD_Y_POS, BOARD_WIDTH, BOARD_HEIGHT + 20)
