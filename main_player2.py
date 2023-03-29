@@ -46,7 +46,6 @@ class main_player2(drawing_player):
                 # if i >= NUM_OF_COMMENTS_TO_DISPLAY - 1:
                 #     break
 
-
     def g_player_main(self):
         pygame.init()
         clock = pygame.time.Clock()
@@ -55,6 +54,11 @@ class main_player2(drawing_player):
         input_rect = pygame.Rect(COMMENT_BOX_WIDTH, COMMENT_BOX_HEIGHT, COMMENT_BOX_X_POS, COMMENT_BOX_Y_POS)
         color_active = pygame.Color('lightskyblue1')
         color_passive = pygame.Color('lightskyblue3')
+        timer_text = str(COUNTER).rjust(3)
+        pygame.time.set_timer(pygame.USEREVENT, 1000)
+        timer_font = pygame.font.SysFont('Consolas', 30)
+        timer_x_pos = TIMER_X_POS
+        counter = COUNTER
 
         while True:
             pressed_enter = False
@@ -80,6 +84,15 @@ class main_player2(drawing_player):
                             # if len(printing_list) == LINE_MAX_LENGTH:
                             #     count += 1
                             #     printing_list = []
+                    elif event.type == pygame.USEREVENT:
+                        counter -= 1
+                        if counter > 0:
+                            timer_text = str(counter).rjust(3)
+                        elif counter == 0:
+                            timer_text = "time's up!"
+                            timer_x_pos = TIMER_X_POS - 50
+                        else:
+                            finished_drawing = True
 
                 screen.fill(WHITE)
                 if active:
@@ -87,6 +100,9 @@ class main_player2(drawing_player):
                 else:
                     color = color_passive
 
+                timer_font = pygame.font.SysFont("Anything Skribble", TIMER_SIZE)
+                txtsurf = timer_font.render(timer_text, True, BLACK)
+                screen.blit(txtsurf, (1000 - txtsurf.get_width() // 2, 700 - txtsurf.get_height() // 2))
 
                 add_image("images/guessing box.png", CHAT_BTN_X_POS, CHAT_BTN_Y_POS, CHAT_BTN_WIDTH, CHAT_BTN_HEIGHT, screen)
 
@@ -95,14 +111,10 @@ class main_player2(drawing_player):
                 pygame.draw.rect(screen, color, input_rect)
 
                 if active:
-                    if len(user_text) <= LINE_MAX_LENGTH:
-                    # for text in range(len(text_list)):
-                    #     print(text_list[text])
-                        text_surface = base_font.render(user_text, True, WHITE)
-                        screen.blit(text_surface, (GUESS_X_POS, GUESS_Y_POS))
-                    else:
-                        text_surface = base_font.render(user_text[0:LINE_MAX_LENGTH], True, WHITE)
-                        screen.blit(text_surface, (GUESS_X_POS, GUESS_Y_POS))
+                    if len(user_text) > LINE_MAX_LENGTH:
+                        user_text = user_text[0:LINE_MAX_LENGTH]
+                    text_surface = base_font.render(user_text, True, WHITE)
+                    screen.blit(text_surface, (GUESS_X_POS, GUESS_Y_POS))
 
                 self.display_comments()
 
