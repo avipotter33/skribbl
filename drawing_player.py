@@ -7,7 +7,6 @@ from buttons import *
 
 
 class drawing_player:
-    rnd_Level1 = 0
 
     def __init__(self):
         pass

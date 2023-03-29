@@ -12,15 +12,12 @@ class home_screen:
     dr_player = drawing_player()
     change_language = True
     PLAY_TEXT = ts.translate_text(PLAY_TEXT, to_language='he')
-    play_button = buttons.play_button
+    mouse_pos = [0, 0]
 
     def __init__(self):
         pass
 
-    def add_image(img_path, x_pos, y_pos, width, height, screen):
-        img = pygame.image.load(img_path)
-        img = pygame.transform.scale(img, (width, height))
-        screen.blit(img, (x_pos, y_pos))
+    play_button = buttons.play_button
 
 
     def main(self):
@@ -88,3 +85,8 @@ class home_screen:
 
         pygame.quit()
         quit()
+
+    def add_image(img_path, x_pos, y_pos, width, height, screen):
+        img = pygame.image.load(img_path)
+        img = pygame.transform.scale(img, (width, height))
+        screen.blit(img, (x_pos, y_pos))
