@@ -50,7 +50,6 @@ class main_player2(drawing_player):
                 #     break
 
     def add_score(self):
-        print("yay!")
         self.score += self.counter
         return self.score
 
@@ -100,8 +99,8 @@ class main_player2(drawing_player):
                             elif self.counter == 0:
                                 timer_text = "time's up!"
                                 timer_x_pos = GUESSING_TIMER_X_POS - 42
-                            else:
-                                finished_drawing = True
+                            elif timer_text == "time's up!":
+                                pressed_enter = True
 
                 screen.fill(WHITE)
                 screen.blit(background, (0, 0))
@@ -117,7 +116,7 @@ class main_player2(drawing_player):
                 screen.blit(timer_font.render(timer_text, True, BLUE), (timer_x_pos, GUESSING_TIMER_Y_POS))
 
                 score_font = pygame.font.SysFont("Anything Skribble", SCORE_SIZE)
-                screen.blit(score_font.render(SCORE_TEXT, True, BLUE), (SCORE_X_POS, SCORE_Y_POS))
+                screen.blit(score_font.render(SCORE_TEXT + str(self.score), True, BLUE), (SCORE_X_POS, SCORE_Y_POS))
 
                 if len(user_text) > LINE_MAX_LENGTH:
                     user_text = user_text[0:LINE_MAX_LENGTH]
@@ -138,4 +137,6 @@ class main_player2(drawing_player):
             if user_text == self.rnd_word:
                 score = self.add_score()
                 return score
+            elif timer_text == "time's up!":
+                return self.score
             user_text = ""
