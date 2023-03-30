@@ -10,7 +10,7 @@ def game_loop():
 
     # init the socket
     # TODO: constants
-    HOST = '192.168.128.254'  # TODO: replace with the IP address of the server computer
+    HOST = '192.168.128.242'  # TODO: replace with the IP address of the server computer
     PORT = 6000
 
     # create a socket object
@@ -38,7 +38,7 @@ def game_loop():
             dr_player.dp_main(client_socket)
         else:
             while running:
-                hm_screen = main_player2(rnd_level1, COUNTER, score)
+                hm_screen = main_player2(rnd_level1, TIME_LEFT, score)
                 score = hm_screen.g_player_main(client_socket)
                 change_player_index = True
                 break

@@ -2,6 +2,7 @@ import socket
 import asyncio
 import threading
 import pickle
+from Constants import *
 
 # create a socket object
 server_socket = socket.socket()
@@ -28,7 +29,7 @@ print(f"Player 2 connected from {address2}")
 
 while True:
     # Receive the image data from player0
-    data = player1.recv(20000)
+    data = player1.recv(IMAGE_SIZE)
     player2.send(data)
 
 

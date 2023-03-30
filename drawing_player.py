@@ -40,7 +40,7 @@ class drawing_player:
         pygame.time.set_timer(pygame.USEREVENT, 1000)
         timer_font = pygame.font.SysFont('Consolas', 30)
         timer_x_pos = TIMER_X_POS
-        counter = COUNTER
+        counter = TIME_LEFT
         count = 0
 
         finished_drawing = False
@@ -52,7 +52,6 @@ class drawing_player:
         running = True
         while running:
             mouse_pos = pygame.mouse.get_pos()
-            print(mouse_pos)
             # handle events
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -100,7 +99,6 @@ class drawing_player:
                     if mouse_in_button(small_circle, mouse_pos):
                         brush_size = SMALL_BRUSH_SIZE
                     if mouse_in_button(trash_can_button, mouse_pos):
-                        print("meow")
                         drawing_surface = pygame.image.load("Images/board.png")
                         drawing_surface = pygame.transform.scale(drawing_surface,
                                                                  (WINDOW_WIDTH + 50, WINDOW_HEIGHT + 20))
@@ -121,7 +119,7 @@ class drawing_player:
                         timer_text = "DRAW!"
 
                     elif str(timer_text) == "DRAW!":
-                        timer_text = str(COUNTER).rjust(3)
+                        timer_text = str(TIME_LEFT).rjust(3)
                     else:
                         counter -= 1
                         if counter > 0:
@@ -165,7 +163,7 @@ class drawing_player:
                     image_to_bytes = f.read()
 
                 # send the move to the server
-                client_socket.send(image_to_bytes)
+                client_socket.sendall(image_to_bytes)
 
             # update the screen
             pygame.display.update()

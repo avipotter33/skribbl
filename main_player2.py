@@ -15,15 +15,11 @@ import socketserver
 
 class main_player2(drawing_player, Image):
     def __init__(self, rnd_word, counter, score):
-        self.cursor_img = pygame.image.load('Images/cursor_image.png')
-        self.cursor_img = pygame.transform.scale(self.cursor_img,
-                                                 (CURSOR_WIDTH + 20, CURSOR_HEIGHT))
-        self.cursor_img_rect = self.cursor_img.get_rect()
         self.comments = []
         self.comments_display_index = 0
         # self.drawing_board = image
         self.rnd_word = rnd_word
-        self.counter = counter
+        self.time_left = TIME_LEFT
         self.score = score
 
     def add_image(img_path, x_pos, y_pos, width, height, screen):
@@ -55,7 +51,7 @@ class main_player2(drawing_player, Image):
             #     break
 
     def add_score(self):
-        self.score += self.counter
+        self.score += self.time_left
         return self.score
 
     def g_player_main(self, client_socket):
@@ -97,13 +93,13 @@ class main_player2(drawing_player, Image):
                         if str(timer_text) == "READY?":
                             timer_text = "GUESS!"
                         elif str(timer_text) == "GUESS!":
-                            timer_text = str(COUNTER).rjust(3)
+                            timer_text = str(TIME_LEFT).rjust(3)
                             timer_x_pos = GUESSING_TIMER_X_POS
                         else:
-                            self.counter -= 1
-                            if self.counter > 0:
-                                timer_text = str(self.counter).rjust(3)
-                            if self.counter == 0:
+                            self.time_left -= 1
+                            if self.time_left > 0:
+                                timer_text = str(self.time_left).rjust(3)
+                            if self.time_left == 0:
                                 timer_text = "time's up!"
                                 timer_x_pos = GUESSING_TIMER_X_POS - 42
                             elif timer_text == "time's up!":
@@ -111,16 +107,14 @@ class main_player2(drawing_player, Image):
 
                 screen.fill(WHITE)
                 screen.blit(background, (0, 0))
-                print(2)
                 # use select() to monitor the socket for incoming data
-                if counter_1 % 300 == 0:
-                    print(3)
+                if counter_1 % 1000 == 0:
                     ready = select.select([client_socket], [], [], 1)
                     print(ready)
                     if ready[0]:
                         print(4)
                         # we have data to read from the socket
-                        image_data = client_socket.recv(20000)
+                        image_data = client_socket.recv(IMAGE_SIZE)
                         with open(os.path.join("saved_drawings", "image.png"), "wb") as f:
                             f.write(image_data)
                     counter = 0
@@ -146,10 +140,10 @@ class main_player2(drawing_player, Image):
                 text_surface = base_font.render(user_text, True, BLACK)
                 screen.blit(text_surface, (GUESS_X_POS, GUESS_Y_POS))
 
-                self.display_comments()
-                self.cursor_img_rect.center = (
-                pygame.mouse.get_pos()[0] + 22, pygame.mouse.get_pos()[1] - 40)  # update position
-                screen.blit(self.cursor_img, self.cursor_img_rect)  # draw the cursor
+                # self.display_comments()
+                # self.cursor_img_rect.center = (
+                # pygame.mouse.get_pos()[0] + 22, pygame.mouse.get_pos()[1] - 40)  # update position
+                # screen.blit(self.cursor_img, self.cursor_img_rect)  # draw the cursor
 
                 pygame.display.flip()
                 clock.tick(60)
