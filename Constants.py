@@ -161,5 +161,9 @@ SEND_BUTTON_WIDTH = 17
 SEND_BUTTON_HEIGHT = 18
 
 NUM_OF_ROUNDS = 3
+EARTH_X_POS = 629
+EARTH_Y_POS = 0
+EARTH_WIDTH = 54
+EARTH_HEIGHT = 36
 
 lang_text = "choose the language you want to play in!"

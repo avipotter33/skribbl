@@ -79,7 +79,6 @@ class home_screen:
             screen.blit(text, [PLAY_BTN_X_POS + 22, PLAY_BTN_Y_POS])
 
             screen.blit(cursor_img, cursor_img_rect)  # draw the cursor
-
             pygame.display.update()
 
             # Set the clock tick to be 60 times per second. 60 frames for second.

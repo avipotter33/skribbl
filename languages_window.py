@@ -10,8 +10,8 @@ class lang_window(drawing_player):
     lang_window = pygame.Rect(100, 50, LANG_WIDTH, LANG_HEIGHT)
     def run(self):
         # TODO: where is the language button???
-        if ((x_pos <= home_screen.mouse_pos[0] <= x_pos + button_width) and
-                (y_pos <= home_screen.mouse_pos[1] <= y_pos + lbutton_height)):
+        if ((EARTH_X_POS <= home_screen.mouse_pos[0] <= EARTH_X_POS + EARTH_WIDTH) and
+                (EARTH_Y_POS <= home_screen.mouse_pos[1] <= EARTH_Y_POS + EARTH_HEIGHT)):
             pygame.draw.rect(screen, LIGHT_BLUE, lang_window)
             #TODO: images
             add_image(image, HE_BTN_X_POS, HE_BTN_Y_POS, LANG_WIDTH, LANG_HEIGHT, screen)
@@ -21,9 +21,10 @@ class lang_window(drawing_player):
             add_image(image, FR_BTN_X_POS, FR_BTN_Y_POS, LANG_WIDTH, LANG_HEIGHT, screen)
             add_image(image, SP_BTN_X_POS, SP_BTN_Y_POS, LANG_WIDTH, LANG_HEIGHT, screen)
 
-            if ((100 >= home_screen.mouse_pos[0] or home_screen.mouse_pos[0]>=600) and
-                    (50 >= home_screen.mouse_pos[1] or home_screen.mouse_pos[1]>=450)):
-
-                # TODO: run main
+            if ((EARTH_X_POS <= home_screen.mouse_pos[0] <= EARTH_X_POS + EARTH_WIDTH) and
+                    (EARTH_Y_POS <= home_screen.mouse_pos[1] <= EARTH_Y_POS + EARTH_HEIGHT)):
+                self.display_image = True
+            if self.display_image:
+                self.display_image = False
             screen.blit(lang_text, [250, 60])
-            # TODO: size??
+# TODO: size??
