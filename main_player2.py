@@ -72,10 +72,9 @@ class main_player2(drawing_player, Image):
         background = pygame.transform.scale(background,
                                             (WINDOW_WIDTH, WINDOW_HEIGHT))
         image_data = 0
-        counter = 0
+        counter_1 = 0
 
         while True:
-            counter += 1
             pressed_enter = False
             active = False
             while not (pressed_enter):
@@ -112,23 +111,29 @@ class main_player2(drawing_player, Image):
 
                 screen.fill(WHITE)
                 screen.blit(background, (0, 0))
+                print(2)
                 # use select() to monitor the socket for incoming data
-                if counter == 30:
+                if counter_1 % 300 == 0:
+                    print(3)
                     ready = select.select([client_socket], [], [], 1)
+                    print(ready)
                     if ready[0]:
+                        print(4)
                         # we have data to read from the socket
-                        image_data = client_socket.recv(10000)
+                        image_data = client_socket.recv(20000)
                         with open(os.path.join("saved_drawings", "image.png"), "wb") as f:
                             f.write(image_data)
                     counter = 0
-                if image_data:
-                    image = pygame.image.load(os.path.join("saved_drawings", f"image.png"))
-                    self.display_image()
 
                 add_image("images/guessing box.png", CHAT_BTN_X_POS, CHAT_BTN_Y_POS, CHAT_BTN_WIDTH, CHAT_BTN_HEIGHT,
                           screen)
                 add_image("images/score box.png", SCORE_BOX_X_POS, SCORE_BOX_Y_POS, SCORE_BOX_WIDTH, SCORE_BOX_HEIGHT,
                           screen)
+
+                if image_data:
+                    print("yes")
+                    image = pygame.image.load(os.path.join("saved_drawings", f"image.png"))
+                    self.display_image(image)
 
                 timer_font = pygame.font.SysFont("Anything Skribble", TIMER_SIZE)
                 screen.blit(timer_font.render(timer_text, True, BLUE), (timer_x_pos, GUESSING_TIMER_Y_POS))
@@ -142,13 +147,13 @@ class main_player2(drawing_player, Image):
                 screen.blit(text_surface, (GUESS_X_POS, GUESS_Y_POS))
 
                 self.display_comments()
-
                 self.cursor_img_rect.center = (
                 pygame.mouse.get_pos()[0] + 22, pygame.mouse.get_pos()[1] - 40)  # update position
                 screen.blit(self.cursor_img, self.cursor_img_rect)  # draw the cursor
 
                 pygame.display.flip()
                 clock.tick(60)
+                counter += 1
 
             new_comment = user_text
             comment = Comment(new_comment)
