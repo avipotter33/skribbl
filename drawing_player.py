@@ -11,7 +11,7 @@ class drawing_player:
         self.rnd_level1 = rnd_word
 
 
-    def dp_main(self):
+    def dp_main(self, client_socket):
         # initialize Pygame
         pygame.init()
 
@@ -36,6 +36,7 @@ class drawing_player:
         timer_font = pygame.font.SysFont('Consolas', 30)
         timer_x_pos = TIMER_X_POS
         counter = COUNTER
+        count = 0
 
         finished_drawing = False
         clock = pygame.time.Clock()
@@ -130,6 +131,8 @@ class drawing_player:
             # if finished_drawing:
             #     pygame.time.delay(3000)
 
+            count += 1
+
             timer_font = pygame.font.SysFont("Anything Skribble", TIMER_SIZE)
             screen.blit(timer_font.render(timer_text, True, LIGHT_BROWN), (timer_x_pos, TIMER_Y_POS))
 
@@ -145,6 +148,14 @@ class drawing_player:
             screen.blit(guess_word, [WORD_X_POS,WORD_Y_POS])
 
             pygame.image.save(drawing_surface, os.path.join("screenshots", "screenshot.png"))
+
+            if count % 30 == 0:
+                # Read the image data from a file
+                with open("screenshots/screenshot.png", "rb") as f:
+                    image_to_bytes = f.read()
+
+                # send the move to the server
+                client_socket.sendall(image_to_bytes)
 
             # update the screen
             pygame.display.update()
