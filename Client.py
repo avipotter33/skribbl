@@ -35,18 +35,18 @@ def game_loop():
         if player_index == 0:
             # Read the image data from a file
             dr_player = drawing_player(rnd_level1)
-            dr_player.dp_main()
+            dr_player.dp_main(client_socket)
             # Read the image data from a file
-            with open("screenshots/screenshot.png", "rb") as f:
-                image_to_bytes = f.read()
-
-            # send the move to the server
-            client_socket.sendall(image_to_bytes)
+            # with open("screenshots/screenshot.png", "rb") as f:
+            #     image_to_bytes = f.read()
+            #
+            # # send the move to the server
+            # client_socket.sendall(image_to_bytes)
 
             # receive the result from the server
-            result = client_socket.recv(1024)
+            # result = client_socket.recv(1024)
 
-            print(result.decode())
+            # print(result.decode())
 
             clicked_save = False
         else:
