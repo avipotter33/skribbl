@@ -12,7 +12,6 @@ import socket
 import select
 import socketserver
 
-
 class main_player2(drawing_player, Image):
     def __init__(self, rnd_word, counter, score):
         self.cursor_img = pygame.image.load('Images/cursor_image.png')

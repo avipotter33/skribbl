@@ -157,6 +157,7 @@ class drawing_player:
             guess_word = word_font.render(self.rnd_level1, True, LIGHT_BROWN)
             screen.blit(guess_word, [WORD_X_POS, WORD_Y_POS])
 
+
             if count % 30 == 0:
                 pygame.image.save(drawing_surface, os.path.join("screenshots", "screenshot.png"))
                 # Read the image data from a file

@@ -8,6 +8,8 @@ import translators as ts
 from drawing_player import *
 # from Translator import *
 from Client import *
+import languages_window
+from languages_window import *
 
 class home_screen:
     change_language = True
@@ -74,6 +76,9 @@ class home_screen:
             if mouse_in_button(play_button, pygame.mouse.get_pos()):
                 add_image('Images/yellow button.png', PLAY_BTN_X_POS, PLAY_BTN_Y_POS, PLAY_BTN_WIDTH, PLAY_BTN_HEIGHT,
                           screen)
+            lang_window = languages_window()
+            lang_window.run()
+
             font = pygame.font.SysFont('Anything Skribble', PLAY_TEXT_SIZE)
             text = font.render(PLAY_TEXT, True, WHITE)
             screen.blit(text, [PLAY_BTN_X_POS + 22, PLAY_BTN_Y_POS])
