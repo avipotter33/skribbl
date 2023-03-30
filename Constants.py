@@ -14,7 +14,7 @@ CHAT_BTN_X_POS, CHAT_BTN_Y_POS = 460, 100
 
 CURSOR_WIDTH, CURSOR_HEIGHT = 100, 100
 
-COUNTER = 20
+COUNTER = 200
 lang_button_width = 40
 lang_button_height = 40
 

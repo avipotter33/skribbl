@@ -13,7 +13,7 @@ class lang_window(drawing_player):
                 (EARTH_Y_POS <= home_screen.mouse_pos[1] <= EARTH_Y_POS + EARTH_HEIGHT)):
             pygame.draw.rect(screen, LIGHT_BLUE, lang_window)
             #TODO: images
-            add_image(image, HE_BTN_X_POS, HE_BTN_Y_POS, LANG_WIDTH, LANG_HEIGHT, screen)
+            add_image(, HE_BTN_X_POS, HE_BTN_Y_POS, LANG_WIDTH, LANG_HEIGHT, screen)
             add_image(image, EN_BTN_X_POS, EN_BTN_Y_POS, LANG_WIDTH, LANG_HEIGHT, screen)
             add_image(image, RU_BTN_X_POS, RU_BTN_Y_POS, LANG_WIDTH, LANG_HEIGHT, screen)
             add_image(image, AR_BTN_X_POS, AR_BTN_Y_POS, LANG_WIDTH, LANG_HEIGHT, screen)
