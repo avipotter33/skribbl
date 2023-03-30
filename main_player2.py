@@ -7,10 +7,13 @@ from buttons import *
 from drawing_player import drawing_player
 from Comment import Comment
 from Image import Image
+import os
+import socket
+import socketserver
 
 
 class main_player2(drawing_player, Image):
-    def __init__(self, image, rnd_word, counter, score):
+    def __init__(self, rnd_word, counter, score):
         self.cursor_img = pygame.image.load('Images/cursor_image.png')
         self.cursor_img = pygame.transform.scale(self.cursor_img,
                                             (CURSOR_WIDTH + 20, CURSOR_HEIGHT))
@@ -21,7 +24,6 @@ class main_player2(drawing_player, Image):
         self.rnd_word = rnd_word
         self.counter = counter
         self.score = score
-        self.drawing_board = image
 
     def add_image(img_path, x_pos, y_pos, width, height, screen):
         img = pygame.image.load(img_path)
@@ -55,7 +57,7 @@ class main_player2(drawing_player, Image):
         self.score += self.counter
         return self.score
 
-    def g_player_main(self):
+    def g_player_main(self, client_socket):
         pygame.init()
         clock = pygame.time.Clock()
         base_font = pygame.font.Font(None, TEXT_WHILE_WRITING_SIZE)
@@ -107,6 +109,10 @@ class main_player2(drawing_player, Image):
                 screen.fill(WHITE)
                 screen.blit(background, (0, 0))
 
+                image_data = client_socket.recv(10000)
+                with open(os.path.join("saved_drawings", "image.png"), "wb") as f:
+                    f.write(image_data)
+                image = pygame.image.load(os.path.join("saved_drawings", f"image.png"))
                 self.display_image()
 
                 add_image("images/guessing box.png", CHAT_BTN_X_POS, CHAT_BTN_Y_POS, CHAT_BTN_WIDTH, CHAT_BTN_HEIGHT, screen)

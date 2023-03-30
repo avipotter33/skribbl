@@ -1,18 +1,18 @@
+import socket
+import pickle
+import pygame
+import threading
+import os
+import translators as ts
+from main_player2 import main_player2
+import random
+from drawing_player import *
+
+# def receive_image:
+#     global received_image
+from Constants import *
+
 def game_loop():
-    import socket
-    import pickle
-    import pygame
-    import threading
-    import os
-    import translators as ts
-    from main_player2 import main_player2
-    import random
-    from drawing_player import *
-
-    # def receive_image:
-    #     global received_image
-    from Constants import *
-
     # initialize Pygame
     pygame.init()
 
@@ -31,10 +31,12 @@ def game_loop():
     player_index = int(client_socket.recv(1024).decode())
     print(player_index)
 
-    window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-    pygame.display.set_caption("Skribble")
+    # window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+    # pygame.display.set_caption("Skribble")
 
     running = True
+
+    change_player_index = False
 
     for i in range(NUM_OF_ROUNDS):
         score = 0
@@ -101,13 +103,22 @@ def game_loop():
             clicked_save = False
         else:
             while running:
-                image_data = client_socket.recv(10000)
-                with open(os.path.join("saved_drawings", "image.png"),"wb") as f:
-                    f.write(image_data)
-                image = pygame.image.load(os.path.join("saved_drawings", f"image.png"))
-                hm_screen = main_player2(image, rnd_level1, COUNTER, score)
-                score = hm_screen.g_player_main()
+                # image_data = client_socket.recv(10000)
+                # with open(os.path.join("saved_drawings", "image.png"),"wb") as f:
+                #     f.write(image_data)
+                # image = pygame.image.load(os.path.join("saved_drawings", f"image.png"))
+                hm_screen = main_player2(rnd_level1, COUNTER, score)
+                score = hm_screen.g_player_main(client_socket)
+                change_player_index = True
+                break
+
+        if change_player_index:
+            if player_index == 0:
+                player_index = 1
+            else:
                 player_index = 0
+            change_player_index = False
+
 
             # image = pygame.transform.scale(image,(WINDOW_WIDTH ,WINDOW_HEIGHT))
 
