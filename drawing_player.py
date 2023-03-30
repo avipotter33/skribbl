@@ -1,3 +1,5 @@
+import time
+
 import pygame
 import os
 import random
@@ -107,8 +109,10 @@ class drawing_player:
                             pygame.draw.line(drawing_surface, brush_color, last_pos, event_pos, brush_size)
                         last_pos = event_pos
                 elif event.type == pygame.USEREVENT:
+
                     if str(timer_text) == "READY?":
                         timer_text = "DRAW!"
+
                     elif str(timer_text) == "DRAW!":
                         timer_text = str(COUNTER).rjust(3)
                     else:
