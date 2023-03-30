@@ -7,7 +7,7 @@ from buttons import *
 import translators as ts
 from drawing_player import *
 # from Translator import *
-# from Client import *
+from Client import *
 
 class home_screen:
     change_language = True
@@ -52,9 +52,9 @@ class home_screen:
                     mouse_pos = event.pos
                     print(mouse_pos)
                     if mouse_in_button(play_button, mouse_pos):
-                        # game_loop()
-                        dr_player = drawing_player("shnizel")
-                        dr_player.dp_main()
+                        game_loop()
+                        #dr_player = drawing_player("shnizel")
+                        #dr_player.dp_main()
             screen.fill(BLUE)
             screen.blit(background, (image_x_index, 0))
 
