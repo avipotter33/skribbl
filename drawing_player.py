@@ -7,7 +7,6 @@ from buttons import *
 
 
 class drawing_player:
-
     def __init__(self, rnd_word):
         self.rnd_level1 = rnd_word
 

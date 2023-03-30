@@ -19,7 +19,7 @@ def game_loop():
     # init the socket
     # TODO: constants
     HOST = '192.168.128.254'  # TODO: replace with the IP address of the server computer
-    PORT = 5000
+    PORT = 6000
 
     # create a socket object
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -129,3 +129,4 @@ def game_loop():
         # quit Pygame
         pygame.quit()
 
+game_loop()
