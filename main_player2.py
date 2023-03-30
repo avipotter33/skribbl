@@ -12,11 +12,12 @@ import socket
 import select
 import socketserver
 
+
 class main_player2(drawing_player, Image):
     def __init__(self, rnd_word, counter, score):
         self.cursor_img = pygame.image.load('Images/cursor_image.png')
         self.cursor_img = pygame.transform.scale(self.cursor_img,
-                                            (CURSOR_WIDTH + 20, CURSOR_HEIGHT))
+                                                 (CURSOR_WIDTH + 20, CURSOR_HEIGHT))
         self.cursor_img_rect = self.cursor_img.get_rect()
         self.comments = []
         self.comments_display_index = 0
@@ -34,24 +35,24 @@ class main_player2(drawing_player, Image):
         self.comments.append(comment_text)
 
     def display_comments(self):
-            """
+        """
             Display guesses. In case there are more than 8
             guesses, show only the last 8
 
             :return: None
             """
-            position_index = self.comments_display_index
-            if len(self.comments) > NUM_OF_COMMENTS_TO_DISPLAY:
-                starting_index = len(self.comments) - NUM_OF_COMMENTS_TO_DISPLAY
-            else:
-                starting_index = 0
-            for i in range(starting_index, len(self.comments)):
-                if position_index > NUM_OF_COMMENTS_TO_DISPLAY:
-                    position_index = 0
-                self.comments[i].display(position_index)
-                position_index += 1
-                # if i >= NUM_OF_COMMENTS_TO_DISPLAY - 1:
-                #     break
+        position_index = self.comments_display_index
+        if len(self.comments) > NUM_OF_COMMENTS_TO_DISPLAY:
+            starting_index = len(self.comments) - NUM_OF_COMMENTS_TO_DISPLAY
+        else:
+            starting_index = 0
+        for i in range(starting_index, len(self.comments)):
+            if position_index > NUM_OF_COMMENTS_TO_DISPLAY:
+                position_index = 0
+            self.comments[i].display(position_index)
+            position_index += 1
+            # if i >= NUM_OF_COMMENTS_TO_DISPLAY - 1:
+            #     break
 
     def add_score(self):
         self.score += self.counter
@@ -77,7 +78,7 @@ class main_player2(drawing_player, Image):
             counter += 1
             pressed_enter = False
             active = False
-            while not(pressed_enter):
+            while not (pressed_enter):
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         pygame.quit()
@@ -124,7 +125,8 @@ class main_player2(drawing_player, Image):
                     image = pygame.image.load(os.path.join("saved_drawings", f"image.png"))
                     self.display_image()
 
-                add_image("images/guessing box.png", CHAT_BTN_X_POS, CHAT_BTN_Y_POS, CHAT_BTN_WIDTH, CHAT_BTN_HEIGHT, screen)
+                add_image("images/guessing box.png", CHAT_BTN_X_POS, CHAT_BTN_Y_POS, CHAT_BTN_WIDTH, CHAT_BTN_HEIGHT,
+                          screen)
                 add_image("images/score box.png", SCORE_BOX_X_POS, SCORE_BOX_Y_POS, SCORE_BOX_WIDTH, SCORE_BOX_HEIGHT,
                           screen)
 
@@ -141,7 +143,8 @@ class main_player2(drawing_player, Image):
 
                 self.display_comments()
 
-                self.cursor_img_rect.center = (pygame.mouse.get_pos()[0] + 22, pygame.mouse.get_pos()[1] - 40) # update position
+                self.cursor_img_rect.center = (
+                pygame.mouse.get_pos()[0] + 22, pygame.mouse.get_pos()[1] - 40)  # update position
                 screen.blit(self.cursor_img, self.cursor_img_rect)  # draw the cursor
 
                 pygame.display.flip()

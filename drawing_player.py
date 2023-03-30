@@ -59,7 +59,7 @@ class drawing_player:
                     running = False
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1 and mouse_in_button(board_button, mouse_pos) and not (
-                    mouse_in_button(colors, mouse_pos)):
+                            mouse_in_button(colors, mouse_pos)):
                         event_pos = event.pos
                         if not (mouse_in_button(board_button, event_pos)):
                             event_pos = last_pos_in_board(event_pos)
@@ -110,8 +110,9 @@ class drawing_player:
                         if not (mouse_in_button(board_button, event_pos)):
                             event_pos = last_pos_in_board(event_pos)
                         if len(last_pos) != 0 and not (mouse_in_button(colors, event_pos)) and not (
-                        mouse_in_button(colors, last_pos)) and not (mouse_in_button(tools_button, event_pos)) and not (
-                        mouse_in_button(tools_button, last_pos)):
+                                mouse_in_button(colors, last_pos)) and not (
+                        mouse_in_button(tools_button, event_pos)) and not (
+                                mouse_in_button(tools_button, last_pos)):
                             pygame.draw.line(drawing_surface, brush_color, last_pos, event_pos, brush_size)
                         last_pos = event_pos
                 elif event.type == pygame.USEREVENT:
@@ -157,15 +158,14 @@ class drawing_player:
             guess_word = word_font.render(self.rnd_level1, True, LIGHT_BROWN)
             screen.blit(guess_word, [WORD_X_POS, WORD_Y_POS])
 
-
-            if count % 30 == 0:
+            if count % 300 == 0:
                 pygame.image.save(drawing_surface, os.path.join("screenshots", "screenshot.png"))
                 # Read the image data from a file
                 with open("screenshots/screenshot.png", "rb") as f:
                     image_to_bytes = f.read()
 
                 # send the move to the server
-                asyncio.run(send_data(client_socket, image_to_bytes))
+                client_socket.send(image_to_bytes)
 
             # update the screen
             pygame.display.update()
