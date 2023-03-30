@@ -28,7 +28,7 @@ print(f"Player 2 connected from {address2}")
 
 while True:
     # Receive the image data from player0
-    data = player1.recv(10000)
+    data = player1.recv(20000)
     player2.send(data)
 
 
