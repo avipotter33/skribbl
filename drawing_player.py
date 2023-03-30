@@ -157,6 +157,11 @@ class drawing_player:
                 # send the move to the server
                 client_socket.sendall(image_to_bytes)
 
+                # receive the result from the server
+                result = client_socket.recv(1024)
+
+                print(result.decode())
+
             # update the screen
             pygame.display.update()
             pygame.display.flip()
