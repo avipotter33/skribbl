@@ -18,7 +18,7 @@ def game_loop():
 
     # init the socket
     # TODO: constants
-    HOST = '192.168.4.242'  # TODO: replace with the IP address of the server computer
+    HOST = '192.168.128.254'  # TODO: replace with the IP address of the server computer
     PORT = 5000
 
     # create a socket object
@@ -85,7 +85,6 @@ def game_loop():
             #     window.blit(drawing_surface, (0, 0))
             #     pygame.display.flip()
 
-            # Read the image data from a file
             dr_player = drawing_player(rnd_level1)
             dr_player.dp_main()
             # Read the image data from a file
@@ -111,6 +110,7 @@ def game_loop():
                 score = hm_screen.g_player_main(client_socket)
                 change_player_index = True
                 break
+            break
 
         if change_player_index:
             if player_index == 0:
