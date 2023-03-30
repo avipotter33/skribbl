@@ -6,12 +6,16 @@ import random
 from Constants import *
 from helpers import *
 from buttons import *
+import asyncio
+
+
+async def send_data(client_socket, data):
+    await asyncio.get_event_loop().sock_sendall(client_socket, data)
 
 
 class drawing_player:
     def __init__(self, rnd_word):
         self.rnd_level1 = rnd_word
-
 
     def dp_main(self, client_socket):
         # initialize Pygame
@@ -19,10 +23,9 @@ class drawing_player:
 
         pygame.display.set_caption("Draw on the Screen")
 
-
         drawing_surface = pygame.image.load("Images/board.png")
-        drawing_surface =  pygame.transform.scale(drawing_surface,
-                                            (WINDOW_WIDTH + 50, WINDOW_HEIGHT + 20))
+        drawing_surface = pygame.transform.scale(drawing_surface,
+                                                 (WINDOW_WIDTH + 50, WINDOW_HEIGHT + 20))
 
         # set up the drawing tools
         brush_size = MEDIUM_BRUSH_SIZE
@@ -55,11 +58,12 @@ class drawing_player:
                 if event.type == pygame.QUIT:
                     running = False
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if event.button == 1 and mouse_in_button(board_button, mouse_pos) and not(mouse_in_button(colors, mouse_pos)):
+                    if event.button == 1 and mouse_in_button(board_button, mouse_pos) and not (
+                    mouse_in_button(colors, mouse_pos)):
                         event_pos = event.pos
-                        if not(mouse_in_button(board_button, event_pos)):
+                        if not (mouse_in_button(board_button, event_pos)):
                             event_pos = last_pos_in_board(event_pos)
-                        if not(mouse_in_button(colors, event_pos)) and not(mouse_in_button(tools_button, event_pos)):
+                        if not (mouse_in_button(colors, event_pos)) and not (mouse_in_button(tools_button, event_pos)):
                             if brush_size == BIG_BRUSH_SIZE:
                                 pygame.draw.circle(drawing_surface, brush_color, event_pos, brush_size - 10)
                             if brush_size == MEDIUM_BRUSH_SIZE:
@@ -105,7 +109,9 @@ class drawing_player:
                         event_pos = event.pos
                         if not (mouse_in_button(board_button, event_pos)):
                             event_pos = last_pos_in_board(event_pos)
-                        if len(last_pos) != 0 and not(mouse_in_button(colors, event_pos)) and not(mouse_in_button(colors, last_pos)) and not(mouse_in_button(tools_button, event_pos)) and not(mouse_in_button(tools_button, last_pos)):
+                        if len(last_pos) != 0 and not (mouse_in_button(colors, event_pos)) and not (
+                        mouse_in_button(colors, last_pos)) and not (mouse_in_button(tools_button, event_pos)) and not (
+                        mouse_in_button(tools_button, last_pos)):
                             pygame.draw.line(drawing_surface, brush_color, last_pos, event_pos, brush_size)
                         last_pos = event_pos
                 elif event.type == pygame.USEREVENT:
@@ -142,14 +148,14 @@ class drawing_player:
 
             if mouse_in_button(board_button, mouse_pos):
                 pygame.mouse.set_visible(False)
-                cursor_img_rect.center = (mouse_pos[0] + 20, mouse_pos[1] - 13) # update position
+                cursor_img_rect.center = (mouse_pos[0] + 20, mouse_pos[1] - 13)  # update position
                 screen.blit(cursor_img, cursor_img_rect)  # draw the cursor
             else:
                 pygame.mouse.set_visible(True)
 
             word_font = pygame.font.SysFont('Anything Skribble', WORD_TEXT_SIZE)
             guess_word = word_font.render(self.rnd_level1, True, LIGHT_BROWN)
-            screen.blit(guess_word, [WORD_X_POS,WORD_Y_POS])
+            screen.blit(guess_word, [WORD_X_POS, WORD_Y_POS])
 
             if count % 30 == 0:
                 pygame.image.save(drawing_surface, os.path.join("screenshots", "screenshot.png"))
@@ -158,9 +164,7 @@ class drawing_player:
                     image_to_bytes = f.read()
 
                 # send the move to the server
-                print("trying to send")
-                client_socket.sendall(image_to_bytes)
-                print("sent")
+                asyncio.run(send_data(client_socket, image_to_bytes))
 
             # update the screen
             pygame.display.update()
