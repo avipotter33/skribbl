@@ -6,16 +6,21 @@ from helpers import *
 from buttons import *
 from drawing_player import drawing_player
 from Comment import Comment
+from Image import Image
 
 
-class main_player2(drawing_player):
-    def __init__(self, image):
+class main_player2(drawing_player, Image):
+    def __init__(self, image, rnd_word, counter, score):
         self.cursor_img = pygame.image.load('Images/cursor_image.png')
         self.cursor_img = pygame.transform.scale(self.cursor_img,
                                             (CURSOR_WIDTH + 20, CURSOR_HEIGHT))
         self.cursor_img_rect = self.cursor_img.get_rect()
         self.comments = []
         self.comments_display_index = 0
+        # self.drawing_board = image
+        self.rnd_word = rnd_word
+        self.counter = counter
+        self.score = score
         self.drawing_board = image
 
     def add_image(img_path, x_pos, y_pos, width, height, screen):
@@ -46,16 +51,20 @@ class main_player2(drawing_player):
                 # if i >= NUM_OF_COMMENTS_TO_DISPLAY - 1:
                 #     break
 
+    def add_score(self):
+        self.score += self.counter
+        return self.score
+
     def g_player_main(self):
         pygame.init()
         clock = pygame.time.Clock()
         base_font = pygame.font.Font(None, TEXT_WHILE_WRITING_SIZE)
         user_text = ''
-        timer_text = str(COUNTER).rjust(3)
+        timer_text = "READY?"
         pygame.time.set_timer(pygame.USEREVENT, 1000)
         timer_font = pygame.font.SysFont('Consolas', 30)
-        timer_x_pos = GUESSING_TIMER_X_POS
-        counter = COUNTER
+        timer_x_pos = GUESSING_TIMER_X_POS - 25
+        # counter = COUNTER
         background = pygame.image.load('Images/background_image.jpg')
         background = pygame.transform.scale(background,
                                             (WINDOW_WIDTH, WINDOW_HEIGHT))
@@ -80,20 +89,25 @@ class main_player2(drawing_player):
                         else:
                             user_text += event.unicode
                     elif event.type == pygame.USEREVENT:
-                        counter -= 1
-                        if counter > 0:
-                            timer_text = str(counter).rjust(3)
-                        elif counter == 0:
-                            timer_text = "time's up!"
-                            timer_x_pos = GUESSING_TIMER_X_POS - 42
+                        if str(timer_text) == "READY?":
+                            timer_text = "GUESS!"
+                        elif str(timer_text) == "GUESS!":
+                            timer_text = str(COUNTER).rjust(3)
+                            timer_x_pos = GUESSING_TIMER_X_POS
                         else:
-                            finished_drawing = True
+                            self.counter -= 1
+                            if self.counter > 0:
+                                timer_text = str(self.counter).rjust(3)
+                            if self.counter == 0:
+                                timer_text = "time's up!"
+                                timer_x_pos = GUESSING_TIMER_X_POS - 42
+                            elif timer_text == "time's up!":
+                                pressed_enter = True
 
                 screen.fill(WHITE)
                 screen.blit(background, (0, 0))
 
-                img = pygame.transform.scale(self.drawing_board, (BOARD_DISPLAYING_DRAWING_WIDTH, BOARD_DISPLAYING_DRAWING_HEIGHT))
-                screen.blit(img, (BOARD_DISPLAYING_DRAWING_X_POS, BOARD_DISPLAYING_DRAWING_Y_POS))
+                self.display_image()
 
                 add_image("images/guessing box.png", CHAT_BTN_X_POS, CHAT_BTN_Y_POS, CHAT_BTN_WIDTH, CHAT_BTN_HEIGHT, screen)
                 add_image("images/score box.png", SCORE_BOX_X_POS, SCORE_BOX_Y_POS, SCORE_BOX_WIDTH, SCORE_BOX_HEIGHT,
@@ -103,7 +117,7 @@ class main_player2(drawing_player):
                 screen.blit(timer_font.render(timer_text, True, BLUE), (timer_x_pos, GUESSING_TIMER_Y_POS))
 
                 score_font = pygame.font.SysFont("Anything Skribble", SCORE_SIZE)
-                screen.blit(score_font.render(SCORE_TEXT, True, BLUE), (SCORE_X_POS, SCORE_Y_POS))
+                screen.blit(score_font.render(SCORE_TEXT + str(self.score), True, BLUE), (SCORE_X_POS, SCORE_Y_POS))
 
                 if len(user_text) > LINE_MAX_LENGTH:
                     user_text = user_text[0:LINE_MAX_LENGTH]
@@ -121,6 +135,9 @@ class main_player2(drawing_player):
             new_comment = user_text
             comment = Comment(new_comment)
             self.add_comment(comment)
+            if user_text == self.rnd_word:
+                score = self.add_score()
+                return score
+            elif timer_text == "time's up!":
+                return self.score
             user_text = ""
-            # if user_text == rnd_Level1:
-            #     print("yay!")
