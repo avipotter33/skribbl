@@ -50,8 +50,10 @@ def game_loop():
                 player_index = 0
             change_player_index = False
 
-        # quit Pygame
-        pygame.quit()
+
+
+    # quit Pygame
+    pygame.quit()
 
 
 game_loop()
