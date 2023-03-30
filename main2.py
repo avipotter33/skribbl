@@ -53,6 +53,8 @@ class home_screen:
                     print(mouse_pos)
                     if mouse_in_button(play_button, mouse_pos):
                         game_loop()
+                        #dr_player = drawing_player("shnizel")
+                        #dr_player.dp_main()
             screen.fill(BLUE)
             screen.blit(background, (image_x_index, 0))
 

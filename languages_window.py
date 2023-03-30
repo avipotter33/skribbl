@@ -9,7 +9,6 @@ from main2 import home_screen
 class lang_window(drawing_player):
     lang_window = pygame.Rect(100, 50, LANG_WIDTH, LANG_HEIGHT)
     def run(self):
-        # TODO: where is the language button???
         if ((EARTH_X_POS <= home_screen.mouse_pos[0] <= EARTH_X_POS + EARTH_WIDTH) and
                 (EARTH_Y_POS <= home_screen.mouse_pos[1] <= EARTH_Y_POS + EARTH_HEIGHT)):
             pygame.draw.rect(screen, LIGHT_BLUE, lang_window)
