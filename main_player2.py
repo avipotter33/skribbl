@@ -6,9 +6,10 @@ from helpers import *
 from buttons import *
 from drawing_player import drawing_player
 from Comment import Comment
+from Image import Image
 
 
-class main_player2(drawing_player):
+class main_player2(drawing_player, Image):
     def __init__(self, image, rnd_word, counter, score):
         self.cursor_img = pygame.image.load('Images/cursor_image.png')
         self.cursor_img = pygame.transform.scale(self.cursor_img,
@@ -16,10 +17,11 @@ class main_player2(drawing_player):
         self.cursor_img_rect = self.cursor_img.get_rect()
         self.comments = []
         self.comments_display_index = 0
-        self.drawing_board = image
+        # self.drawing_board = image
         self.rnd_word = rnd_word
         self.counter = counter
         self.score = score
+        self.drawing_board = image
 
     def add_image(img_path, x_pos, y_pos, width, height, screen):
         img = pygame.image.load(img_path)
@@ -96,7 +98,7 @@ class main_player2(drawing_player):
                             self.counter -= 1
                             if self.counter > 0:
                                 timer_text = str(self.counter).rjust(3)
-                            elif self.counter == 0:
+                            if self.counter == 0:
                                 timer_text = "time's up!"
                                 timer_x_pos = GUESSING_TIMER_X_POS - 42
                             elif timer_text == "time's up!":
@@ -105,8 +107,7 @@ class main_player2(drawing_player):
                 screen.fill(WHITE)
                 screen.blit(background, (0, 0))
 
-                img = pygame.transform.scale(self.drawing_board, (BOARD_DISPLAYING_DRAWING_WIDTH, BOARD_DISPLAYING_DRAWING_HEIGHT))
-                screen.blit(img, (BOARD_DISPLAYING_DRAWING_X_POS, BOARD_DISPLAYING_DRAWING_Y_POS))
+                self.display_image()
 
                 add_image("images/guessing box.png", CHAT_BTN_X_POS, CHAT_BTN_Y_POS, CHAT_BTN_WIDTH, CHAT_BTN_HEIGHT, screen)
                 add_image("images/score box.png", SCORE_BOX_X_POS, SCORE_BOX_Y_POS, SCORE_BOX_WIDTH, SCORE_BOX_HEIGHT,
