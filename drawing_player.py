@@ -39,11 +39,6 @@ class drawing_player:
         counter = COUNTER
 
         finished_drawing = False
-
-        # background = pygame.image.load('Images/background_image.jpg')
-        # background = pygame.transform.scale(background,
-        #                                     (WINDOW_WIDTH, WINDOW_HEIGHT))
-
         clock = pygame.time.Clock()
 
         last_pos = ""
