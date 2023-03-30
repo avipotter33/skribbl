@@ -158,12 +158,9 @@ class drawing_player:
                     image_to_bytes = f.read()
 
                 # send the move to the server
+                print("trying to send")
                 client_socket.sendall(image_to_bytes)
-
-                # receive the result from the server
-                result = client_socket.recv(1024)
-
-                print(result.decode())
+                print("sent")
 
             # update the screen
             pygame.display.update()
