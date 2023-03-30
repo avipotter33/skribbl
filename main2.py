@@ -45,6 +45,8 @@ class home_screen:
                                             (CURSOR_WIDTH, CURSOR_HEIGHT))
         cursor_img_rect = cursor_img.get_rect()
 
+        language = False
+
         running = True
         while running:
             for event in pygame.event.get():
@@ -54,9 +56,15 @@ class home_screen:
                     mouse_pos = event.pos
                     print(mouse_pos)
                     if mouse_in_button(play_button, mouse_pos):
+                        print("meow")
                         game_loop()
-                        #dr_player = drawing_player("shnizel")
-                        #dr_player.dp_main()
+                        # dr_player = drawing_player("shnizel")
+                        # dr_player.dp_main()
+                    if mouse_in_button(language_icon, mouse_pos):
+                        # game_loop()
+                        language = True
+                        # dr_player = drawing_player("shnizel")
+                        # dr_player.dp_main()
             screen.fill(BLUE)
             screen.blit(background, (image_x_index, 0))
 
@@ -71,6 +79,9 @@ class home_screen:
             add_image('Images/home page5(2).png', HOME_PAGE_X_POS, HOME_PAGE_Y_POS, HOME_PAGE_WIDTH, HOME_PAGE_HEIGHT, screen)
             add_image('Images/button.png', PLAY_BTN_X_POS, PLAY_BTN_Y_POS, PLAY_BTN_WIDTH, PLAY_BTN_HEIGHT, screen)
             #add_image('Images/yellow button.png', BUTTON_X_POS, BUTTON_Y_POS, BUTTON_WIDTH, BUTTON_HEIGHT, screen)
+
+            if language:
+                add_image("Images/flags.png", LANGUAGE_X_POS, LANGUAGE_Y_POS, LANGUAGE_WIDTH, LANGUAGE_HEIGHT, screen)
 
             cursor_img_rect.center = pygame.mouse.get_pos()  # update position
             if mouse_in_button(play_button, pygame.mouse.get_pos()):

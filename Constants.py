@@ -167,3 +167,8 @@ EARTH_WIDTH = 54
 EARTH_HEIGHT = 36
 
 lang_text = "choose the language you want to play in!"
+
+LANGUAGE_X_POS = 300
+LANGUAGE_Y_POS = 300
+LANGUAGE_WIDTH = 300
+LANGUAGE_HEIGHT = 300
