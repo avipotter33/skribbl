@@ -9,6 +9,7 @@ from Comment import Comment
 from Image import Image
 import os
 import socket
+import select
 import socketserver
 
 
@@ -70,8 +71,11 @@ class main_player2(drawing_player, Image):
         background = pygame.image.load('Images/background_image.jpg')
         background = pygame.transform.scale(background,
                                             (WINDOW_WIDTH, WINDOW_HEIGHT))
+        image_data = 0
+        counter = 0
 
         while True:
+            counter += 1
             pressed_enter = False
             active = False
             while not(pressed_enter):
@@ -108,12 +112,18 @@ class main_player2(drawing_player, Image):
 
                 screen.fill(WHITE)
                 screen.blit(background, (0, 0))
-
-                image_data = client_socket.recv(10000)
-                with open(os.path.join("saved_drawings", "image.png"), "wb") as f:
-                    f.write(image_data)
-                image = pygame.image.load(os.path.join("saved_drawings", f"image.png"))
-                self.display_image()
+                # use select() to monitor the socket for incoming data
+                if counter == 30:
+                    ready = select.select([client_socket], [], [], 1)
+                    if ready[0]:
+                        # we have data to read from the socket
+                        image_data = client_socket.recv(10000)
+                        with open(os.path.join("saved_drawings", "image.png"), "wb") as f:
+                            f.write(image_data)
+                    counter = 0
+                if image_data:
+                    image = pygame.image.load(os.path.join("saved_drawings", f"image.png"))
+                    self.display_image()
 
                 add_image("images/guessing box.png", CHAT_BTN_X_POS, CHAT_BTN_Y_POS, CHAT_BTN_WIDTH, CHAT_BTN_HEIGHT, screen)
                 add_image("images/score box.png", SCORE_BOX_X_POS, SCORE_BOX_Y_POS, SCORE_BOX_WIDTH, SCORE_BOX_HEIGHT,
