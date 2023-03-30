@@ -109,10 +109,8 @@ class main_player2(drawing_player, Image):
                 screen.blit(background, (0, 0))
                 # use select() to monitor the socket for incoming data
                 if counter_1 % 1000 == 0:
-                    ready = select.select([client_socket], [], [], 1)
-                    print(ready)
+                    ready = select.select([client_socket], [], [], 0.01)
                     if ready[0]:
-                        print(4)
                         # we have data to read from the socket
                         image_data = client_socket.recv(IMAGE_SIZE)
                         with open(os.path.join("saved_drawings", "image.png"), "wb") as f:

@@ -10,7 +10,7 @@ def game_loop():
 
     # init the socket
     # TODO: constants
-    HOST = '192.168.128.242'  # TODO: replace with the IP address of the server computer
+    HOST = '192.168.60.254'  # TODO: replace with the IP address of the server computer
     PORT = 6000
 
     # create a socket object
